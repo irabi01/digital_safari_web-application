@@ -1,0 +1,65 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content %}
+  <div class="company_registration w3-card-4">
+    <div class="container">
+      <h1>Register new Company</h1>
+      <hr>
+      {% if messages %}
+        {% for message in messages %}
+        <div class="w3-panel w3-display-container w3-green" id="success_message">
+         <span onclick="this.parentElement.style.display='none'"
+         class="w3-button w3-display-topright">OK</span>
+          <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
+        </div>
+        {% endfor %}
+      {% endif %}
+      <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-6">
+          <div class="form_registration_company">
+            <form action="{% url 'new_company_dashboard' %}" method="post">
+              {% csrf_token %}
+              <div class="name_container">
+                <div class="form-group">
+                  <label>Company Name</label>
+                  {{form.company_name}}
+                </div>
+                <div class="form-group">
+                  <label>Tiny Number</label>
+                  {{form.tiny_number}}
+                </div>
+              </div>
+              <div class="contact_detail_container">
+                <!-- <h4>contact details</h4> -->
+                <div class="form-group">
+                  <label>Business License</label>
+                  {{form.business_license}}
+                </div>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  {{form.email_address}}
+                </div>
+                <div class="form-group">
+                  <label>Mobile Number</label>
+                  {{form.phone_number}}
+                </div>
+                <div class="form-group">
+                  <label>Staff Status</label>
+                  {{form.staff_status}}
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" name="button" class="btn btn-sm btn_register_company btn-block">Register company</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

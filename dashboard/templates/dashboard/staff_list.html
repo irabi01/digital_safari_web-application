@@ -1,0 +1,56 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content%}
+<div class="view_bus_container w3-card-4">
+  <div class="container">
+    <h1>List of Staffs</h1>
+    {% if messages %}
+      {% for message in messages %}
+      <div class="w3-panel w3-display-container w3-green">
+       <span onclick="this.parentElement.style.display='none'"
+       class="w3-button w3-display-topright">X</span>
+        <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
+      </div>
+      {% endfor %}
+    {% endif %}
+    <hr>
+    <center><h2>Total Number of Staffs Added: <strong class="w3-text-red">{{count_staffs}}</strong></h2></center>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Company Name</th>
+                <!-- <th scope="col">First Name</th>
+                <th scope="col">Last Name</th> -->
+                <th scope="col">Phone Number</th>
+                <th scope="col">E-mail Address</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for staffs_list in staffs %}
+                <tr>
+                  <td>{{staffs_list.id}}</td>
+                  <td>{{staffs_list.company_name}}</td>
+                  <!-- <td>{{user.first_name}}</td>
+                  <td>{{user.last_name}}</td> -->
+                  <td>{{staffs_list.phone_number}}</td>
+                  <td>{{staffs_list.email_address}}</td>
+                  <td>{{staffs_list.staff_status}}</td>
+                  <td>
+                    <center><a href="{% url 'delete_staff_dashboard' staffs_list.id %}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> &nbsp&nbsp <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a></center>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}

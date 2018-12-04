@@ -1,0 +1,1169 @@
+.preload{
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+}
+.preload h2{
+  text-align: center;
+  font-size: 10px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #000;
+  text-transform: uppercase;
+}
+*{
+  font-family: calibri;
+}
+.available_content{
+  display: none;
+}
+.home_container{
+background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../images/tz.jpg");
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+background-attachment: fixed;
+color: #fff;
+padding-top: 250px;
+padding-bottom: 100px;
+}
+.home_container h1, h3{
+  text-align:center;
+  font-family: sans-serif;
+}
+.home_container h1{
+  font-size: 50px;
+}
+.home_container h3{
+  font-size: 70px;
+  padding-bottom: 40px;
+}
+.journey_header{
+  color: #0654a2;
+}
+.navigation_bar{
+  background: #0654a2;
+  /* height: 100px; */
+}
+.navigation_bar a{
+  text-transform: capitalize;
+  color: #fff;
+  font-size: 20px;
+  /* font-family: comic; */
+  /* font-family: Montserrat; */
+  font-family: calibri;
+}
+.navigation_bar #navbarSupportedContent ul li a{
+  color: #fff;
+  text-align: center;
+  /* font-family: sans-serif; */
+  /* font-family: Montserrat; */
+  font-family: calibri;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+.navigation_bar #navbarSupportedContent ul li a:hover{
+  color: #fff;
+  text-decoration: none;
+}
+.navigation_bar #navbarSupportedContent ul li:hover{
+  color: #fff;
+  background: #052e57;
+  text-decoration: none;
+}
+
+/* set the active nativation here */
+/* .navigation_bar #navbarSupportedContent ul li .active{
+  color: #fff;
+  background: #052e57;
+  text-decoration: none;
+} */
+.form_container_for_live_search{
+  padding: 50px 0px;
+  background: #0654a2;
+  border-top-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.form_container_for_live_search input{
+  border-radius: 0px;
+  border: none;
+  height: 50px;
+}
+.form_container{
+  background: #0654a2;
+  padding: 50px 50px;
+  border-top-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.inputWithIcon input[type=text]{
+  padding-left: 40px;
+  }
+.inputWithIcon select{
+  padding-left: 40px;
+}
+.inputWithIcon{
+  position: relative;
+}
+.inputWithIcon i{
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  padding: 9px 8px;
+  color: #aaa;
+}
+.form_container_for_live_search .inputWithIcon i{
+  position: absolute;
+  left: 2px;
+  top: 10px;
+  padding: 9px 8px;
+  color: #aaa;
+}
+.form_container span{
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.form_container input{
+  border-radius: 0px;
+  border: none;
+}
+.btn_search_route{
+  border-radius: 20px;
+  border: none;
+  width: 50%;
+  height: 30px;
+  text-transform: capitalize;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .form_container input{
+    border: none;
+    border-radius: 20px;
+  }
+  .home_container h1{
+    font-size: 30px;
+  }
+  .home_container h3{
+    font-size: 30px;
+  }
+  .journey_header{
+    color: #fff;
+  }
+  .btn_search_route{
+    border-radius: 20px;
+    border: none;
+    width: 100%;
+    height: 40px;
+    text-transform: capitalize;
+  }
+
+}
+
+/* our_partners */
+.our_partners{
+  padding: 100px 0px;
+}
+.our_partners h1{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 50px;
+  padding-bottom: 30px;
+}
+
+/* new letter section */
+.news_letter_section{
+  background: #3399ff;
+  padding: 100px 0px;
+  justify-content: center;
+}
+.btn_subscribe{
+  background: #3399ff;
+  border-radius: 20px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.news_letter_section h3{
+  text-align: center;
+}
+
+
+/* footer section */
+.footer_container{
+  padding: 100px 0px;
+  text-align: center;
+  background: #0654a2;
+  color: #fff;
+}
+.icon_footer i{
+  background: #3399ff;
+  /* padding: 10px 10px; */
+  padding-top: 20px;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}
+
+/* login page */
+.login_container{
+  /* padding: 50px 0px; */
+}
+.login_center_column{
+  background: #fff;
+  margin-bottom: 50px;
+  /* border-top-left-radius: 40px; */
+  border-bottom-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  padding-top: 50px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 50px;
+}
+.login_container .login_center_column h1{
+  font-family: Montserrat;
+  font-weight: 700;
+  font-size: 14px;
+  text-align:center;
+
+}
+.login_center_column h3{
+  color: #000;
+  padding: 20px 0px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.login_center_column form input[type=text]{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid #0654a2;
+}
+.login_center_column .btn_login{
+  width: 100%;
+  height: 30px;
+  border-radius: 0px;
+  border: none;
+  font-size: 15px;
+  color: #fff;
+  background: #0654a2;
+  text-transform: capitalize;
+}
+.login_center_column .btn_login_with_google{
+  width: 100%;
+  height: 30px;
+  border-radius: 0px;
+  border: none;
+  font-size: 15px;
+  color: #fff;
+  background: #f63e3e;
+  text-transform: capitalize;
+}
+.login_center_column .btn_login_with_facebook{
+  width: 100%;
+  height: 30px;
+  border-radius: 0px;
+  border: none;
+  font-size: 15px;
+  color: #fff;
+  background: #1980e7;
+  text-transform: capitalize;
+}
+.login_center_column .login_logo{
+  margin-bottom: 50px;
+}
+.company_login_container{
+  padding:50px 0px;
+}
+.company_login_center_column{
+  background: #fff;
+  margin-bottom: 50px;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  padding-top: 50px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 50px;
+}
+.company_login_center_column h3{
+  color: #000;
+  font-size: 20px;
+  padding: 20px 0px;
+  text-transform: capitalize;
+}
+.company_login_logo{
+  margin-bottom: 50px;
+}
+.company_login_center_column input{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+}
+.company_login_center_column .btn_login_company{
+  width: 100%;
+  height: 30px;
+  border-radius: 0px;
+  border: none;
+  font-size: 15px;
+  color: #fff;
+  background: #0654a2;
+  text-transform: capitalize;
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .login_center_column{
+    padding-top: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 50px;
+  }
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .login_center_column{
+    padding-top: 50px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 50px;
+  }
+}
+/* registration page */
+.registration_container{
+  padding: 100px 0px;
+}
+.registration_conter_column{
+  background: #fff;
+  margin-bottom: 50px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 50px;
+}
+.registration_form_column input{
+  height: 40px;
+  background: #fff;
+  color: #000000;
+  border-radius: 0px;
+  padding-left: 10px;
+  border:1px solid #0654a2;
+}
+.registration_form_column button{
+  width: 100%;
+  height: 40px;
+  border-radius: 0px;
+  border: none;
+  font-size: 15px;
+  color: #fff;
+  background: #0654a2
+}
+.registration_conter_column h3{
+  text-transform: capitalize;
+  color: #000;
+  font-size: 20px;
+}
+.name_container h4{
+  text-transform: capitalize;
+  color: #000;
+  font-family: sans-serif;
+  font-size: 15px;
+}
+.contact_detail_container h4{
+  text-transform: capitalize;
+  color: #000;
+  font-size: 15px;
+}
+.login_info_container h4{
+  text-transform: capitalize;
+  color: #000;
+  font-size: 15px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+   .digital_safari_hill{
+    margin-bottom: 20px;
+  }
+}
+
+.container_for_available_bus_and_routes{
+  background: #0654a2;
+}
+.container_for_available_bus_and_routes .hold_form_and_button_contents{
+  background: #0654a2;
+  padding-top: 100px;
+  padding-bottom: 30px;
+}
+.container_for_available_bus_and_routes input[type=text]{
+  width: 100%;
+  height: 50px;
+  border-radius: 0px;
+  border: none;
+  font-family: comic;
+}
+.available_bus_second_container{
+  background: #fff;
+  color: #000;
+}
+.available_bus_second_container .results_row h1{
+  font-size: 15px;
+  text-align: center;
+  /* font-family: "Source Sans Pro", "Arial", sans-serif; */
+  /* font-family: monospace; */
+}
+.available_bus_third_container{
+  background: #fff;
+  color: #000;
+}
+.available_bus_third_container .available_bus_row_one{
+  padding: 10px 0px;
+}
+.available_bus_third_container .available_bus_row_one .filter_area{
+  border: 1px solid #0654a2;
+}
+.available_bus_third_container .available_bus_row_one .filter_area .filter_area_heading{
+  background: #0654a2;
+  color: #fff;
+  padding: 20px 0px;
+}
+.available_bus_third_container .available_bus_row_one .filter_area .filter_area_heading h1{
+  font-size: 15px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.filter_header h1{
+  font-size: 15px;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: 900;
+  /* font-family: Montserrat; */
+}
+.filter_list button{
+  /* background: #bebebe; */
+  color: #000;
+  border-radius: 0px;
+  border: none;
+  width: 90%;
+  height: 30px;;
+}
+.filter_list{
+  padding: 20px 20px;
+}
+
+.center_column_available_bus{
+  border: 1px solid #0654a2;
+  margin-bottom: 20px;
+}
+.thead_dark{
+  background: #0654a2;
+  color: #fff;
+  font-family: Montserrat;
+}
+.center_column_available_bus h2{
+  font-size: 15px;
+  padding-left: 10px;
+}
+.center_column_available_bus i{
+  color:#0654a2;
+}
+.center_column_available_bus a{
+  background: #0654a2;
+  color: #fff;
+  text-transform: capitalize;
+  border-radius: 0px;
+  border: none;
+  text-decoration: none;
+}
+.center_column_available_bus strong{
+  font-size: 13px;
+  font-weight: bold;
+  font-family: calibri;
+}
+.center_column_available_bus td{
+  font-size: 15px;
+}
+.center_column_available_bus td:first-child{
+  text-transform: uppercase;
+}
+.form_for_live_search_routes{
+  background: #0654a2;
+  padding: 100px 0px;
+}
+.form_for_live_search_routes input[type=text]{
+  width: 100%;
+  height: 40px;
+  border-radius: 0px;
+  border: none;
+  /* font-family: "Source Sans Pro", "Arial", sans-serif; */
+  /* font-family: monospace; */
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+.erro_page_contents_container{
+  padding: 100px 0px;
+}
+.erro_page_contents_container ._error_contents{
+  text-align: center;
+}
+.erro_page_contents_container ._error_contents h1{
+  font-size: 200px;
+  font-family: monospace;
+}
+.erro_page_contents_container ._error_contents h1 span{
+  font-family: comic;
+  font-size: 150px;
+  color: #ff0000;
+}
+.erro_page_contents_container ._error_contents h2{
+  font-family: monospace;
+  font-size: 50px;
+}
+.erro_page_contents_container ._error_contents a{
+  border-radius: 0px;
+  border: none;
+  padding: 10px 30px;
+  background: #0654a2;
+  margin-top: 50px;
+  color: #fff;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+/*===========================Project dashboard===================================== */
+.dashboard_header{
+  background-color: #0654a2;
+}
+.dashboard_header h1{
+  color: #fff;
+  font-size: 20px;
+  /* font-family: sans-serif; */
+  text-align: center;
+}
+.welcome_header{
+  float: left;
+  padding-top: 15px;
+}
+.logout{
+  float: right;
+}
+.logout{
+  padding-right: 50px;
+  padding-top: 15px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.logout p a{
+  text-decoration: none;
+  border-radius: 20px;
+  background: #3399ff;
+}
+.side_navigation_dashboard{
+  background: #fff;
+}
+.side_navigation_dashboard a{
+  text-decoration: none;
+  line-height: 30px;
+  color: #000;
+  font-size: 15px;
+  text-transform: capitalize;
+}
+.side_navigation_dashboard a:hover{
+  background: #fff;
+  color: #000;
+  padding-left: 10px;
+}
+.add_user_admn_part{
+  padding: 50px 10px;
+}
+.add_user_admn_part input{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  border: 1px solid #0654a2;
+  padding-left: 10px;
+}
+.add_user_admn_part input:focus{
+  border-bottom:1px solid #3399ff
+}
+.add_user_admn_part select{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid #0654a2;
+}
+.add_user_admn_part select:focus{
+  border-bottom:1px solid #3399ff
+}
+.add_user_admn_part h1{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+.add_button_user{
+  background: #0654a2;
+  color: #fff;
+  border-radius: 0px;
+  height: 40px;
+  width: 100%;
+  text-transform: capitalize;
+}
+/*======================== add customers ========================*/
+.add_customer_admn_part{
+  padding: 50px 10px;
+}
+.add_customer_admn_part h1{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+.add_customer_admn_part input{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+}
+.add_customer_admn_part select{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+}
+.add_button_customer{
+  background: #0654a2;
+  color: #fff;
+  border-radius: 0px;
+  height: 40px;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+/*=========================== register new bus ===========================*/
+.register_new_bus h1{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+.register_new_bus{
+  padding: 50px 10px;
+}
+.register_new_bus input[type=text], input[type=number]{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid #0654a2;
+  color: #000;
+}
+.register_new_bus label{
+  text-transform: capitalize;
+}
+.register_new_bus select{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid #0654a2;
+  color: #000;
+}
+.register_bus_button_user{
+  background: #0654a2;
+  color: #fff;
+  border-radius: 0px;
+  height: 40px;
+  text-transform: capitalize;
+  width: 100%
+}
+/*======================= add new bus and routes =======================*/
+.add_new_bus_and_routes{
+  padding: 50px 10px;
+}
+.add_new_bus_and_routes h1{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+.add_new_bus_and_routes input[type=text]{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+  border:1px solid #0654a2;
+  color: #000;
+}
+.add_new_bus_and_routes select{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+  border:1px solid #0654a2;
+  color: #000;
+}
+.add_new_bus_and_routes h3{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 15px;
+}
+.add_bus_button_and_routes{
+  background: #0654a2;
+  color: #fff;
+  border-radius: 0px;
+  height: 40px;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+.container_ya_added_bus{
+  border-radius: 0px;
+  border: 1px solid #0654a2;
+  padding: 20px 10px;
+}
+
+
+
+
+
+
+
+
+
+.display_seat_status h5{
+  padding-top: 30px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+}
+
+.company_registration{
+  padding: 50px 10px;
+}
+.company_registration h1{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+.company_registration input[type=text], input[type=email], input[type=password]{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid #0654a2;
+  color: #000;
+}
+
+.login_information{
+  text-align: center;
+  background: #0654a2;
+  padding: 10px 20px;
+  color: #fff;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-bottom: 20px;
+}
+.company_registration input[type=password]{
+  height: 40px;
+  border-radius: 0px;
+  width: 100%;
+  padding-left: 10px;
+  color: #000;
+}
+.btn_register_company{
+  background: #0654a2;
+  color: #fff;
+  border-radius: 0px;
+  height: 40px;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+
+
+
+/* demo about seat arrangement */
+.seatDesigns-part{
+    height: 20px;
+    width: 20px;
+    margin: 3px;
+    float: left;
+    text-align: center;
+    outline: none;
+    font-size: 8px;
+    line-height: 20px;
+    color: #000;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+div.seatDesigns-free {
+    background-color: #fff;
+}
+div.seatDesigns-part {
+    height: 25px;
+    width: 25px;
+    margin: 5px;
+    float: left;
+    font-weight: bold;
+    outline: 0;
+    font-size: 9px;
+    line-height: 25px;
+    color: #000;
+    /* font-weight: 500; */
+    text-transform: uppercase;
+}
+div.seatDesigns-seat {
+    color: #666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 0;
+    cursor: default;
+    box-shadow: none;
+    background-color: #fff;
+    background-image: url("../images/seat_bg.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 110%;
+}
+div.seatDesigns-seat:hover{
+  background: #001f01;
+  border-radius: 100%;
+  color:#fff;
+}
+
+
+/*====================================== view bus ======================================*/
+.view_bus_container{
+  padding: 50px 0px;
+}
+.view_bus_container h1{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+/*================================ available bus and routes ================================*/
+
+
+
+
+
+/*=================================== seat layout style ===================================*/
+.bus_detail_seat_layout{
+  background: #0654a2;
+  padding: 20px 0px;
+  color: #fff;
+}
+.button_send_passenger_data{
+  background: #0654a2;
+  border-radius: 0px;
+  text-transform: capitalize;
+  color: #fff;
+}
+.seat_chart{
+  background: #0654a2;
+  padding: 20px 0px;
+  color: #fff;
+}
+.seat_chart h2{
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+}
+.layout_of_seat{
+  border: 1px solid #0654a2;
+}
+.layout_of_seat .seats{
+  padding: 10px 20px;
+}
+.seat_layout_container{
+  padding-top: 0px;
+}
+.center_column_seat_layout td{
+  text-transform:uppercase;
+}
+.center_column_seat_layout{
+  margin-top: 50px;
+  border: 1px solid #0654a2;
+}
+.center_column_seat_layout h2{
+  font-size: 15px;
+  font-weight: bold;
+  padding-left: 10px;
+  text-transform: capitalize;
+}
+.seat_layout_container .center_column_seat_layout table tr td i{
+  color: #0654a2;
+}
+.seat_container{
+  margin: 20px 0px;
+}
+
+.next_process_after_seat_selected h2{
+  font-size: 15px;
+  font-weight: bold;
+  padding-left: 10px;
+  text-transform: capitalize;
+  text-align: center;
+}
+.seat_container .next_process_after_seat_selected{
+  border: 1px solid #0654a2;
+}
+.seat_container .next_process_after_seat_selected .proceed_to_personal_info{
+  background: #0654a2;
+  border-radius: 0px;
+  color: #fff;
+  border: none;
+}
+.personal_container{
+  border: 1px solid #0654a2;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+.personal_details_form h1{
+  text-transform: capitalize;
+  color: #000;
+  font-family: sans-serif;
+  font-size: 20px;
+  text-align: center;
+}
+/*=========================== personal details ===========================*/
+.peronal_address{
+  display: none;
+}
+.peronal_address h1{
+  text-align: center;
+  font-size: 15px;
+  font-family: sans-serif;
+}
+.save_passenger_info{
+  background: #0654a2;
+  border: none;
+  border-radius: 0px;
+  padding: 5px 20px;
+  color: #fff;
+  text-transform: capitalize;
+}
+.save_passenger_info{
+  display: none;
+}
+.contact_details_for_payment input[type='text'], .contact_details_for_payment input[type='email']{
+  width: 100%;
+  height: 40px;
+  border-radius: 0px;
+}
+/*============================ payment options ============================*/
+.payment_option_container{
+  padding-bottom: 100px;
+}
+.payment_company{
+  border: 1px solid #0654a2;
+  /* padding: 10px 20px; */
+  margin-top: 20px;
+}
+.payment_method_company{
+  padding: 10px 20px;
+}
+.payment_company h1{
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+.payment_company .tigopesa{
+  background: #01214d;
+  color: #fff;
+  font-weight: bold;
+  text-transform: capitalize;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 30px;
+  border-radius: 80%;
+}
+.payment_company .vodacom{
+  background: rgb(230, 0, 0);
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: bold;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 30px;
+  border-radius: 80%;
+}
+.bank_row{
+  margin-top: 20px;
+}
+.payment_company .crdb_bank{
+  background: rgba(11, 86, 43,1);
+  color: #fff;
+  font-weight: bold;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 30px;
+  border-radius: 80%;
+}
+.payment_company .nmb_bank{
+  background: rgb(81, 147, 205);
+  color: #fff;
+  font-weight: bold;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 30px;
+  border-radius: 80%;
+}
+.payment_company a{
+  text-decoration: none;
+}
+.full_details_after_get_passenger_or_passnegers_info{
+  border: 1px solid #0654a2;
+  margin-top: 20px;
+}
+.full_details_after_get_passenger_or_passnegers_info h2{
+  text-align: center;
+  font-size: 15px;
+  font-family: sans-serif;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.payment_option_container .full_details_after_get_passenger_or_passnegers_info table tbody tr td i{
+  color: #0654a2;
+}
+.payment_option_container .full_details_after_get_passenger_or_passnegers_info table tbody tr td{
+  text-transform: uppercase;
+}
+
+.available_bus_container .center_column_available_bus table tr td a:hover{
+  text-decoration:none;
+}
+.bus_details_heading{
+  background: #0654a2;
+  padding: 20px 0px;
+  color: #fff;
+}
+.important_note_heading{
+  background: #0654a2;
+  padding: 20px 0px;
+  color: #fff;
+}
+.payment_method_selection{
+  background: #0654a2;
+  padding: 20px 0px;
+  color: #fff;
+}
+.passengers_details{
+  background: #0654a2;
+  padding: 20px 0px;
+  color: #fff;
+}
+.passengers_details h2{
+  text-align: center;
+  font-size: 15px;
+  font-family: sans-serif;
+  text-transform: capitalize;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.important_note h1{
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-family: sans-serif;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.next_process_after_seat_selected td:nth-child(2) {
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+  font-size: 15px
+}
+
+.number_of_passengers{
+  padding: 20px 20px;
+}
+.number_of_passengers .passenger_one_layout{
+  border: 1px solid #0654a2;
+  padding: 20px 20px;
+  margin: 10px 0px;
+}
+.number_of_passengers .passenger_one_layout h3{
+  font-size: 15px;
+  padding-left: 20px;
+}
+.number_of_passengers .passenger_one_layout ul li{
+  font-size: 15px;
+  color: #000;
+  font-family: sans-serif;
+  line-height: 40px;
+  font-weight: bold;
+}
+.number_of_passengers .passenger_two_layout{
+  border: 1px solid #0654a2;
+  padding: 20px 20px;
+  margin: 10px 0px;
+}
+.number_of_passengers .passenger_two_layout h3{
+  font-size: 15px;
+  padding-left: 20px;
+}
+.number_of_passengers .passenger_two_layout ul li{
+  font-size: 15px;
+  color: #000;
+  font-family: sans-serif;
+  line-height: 40px;
+  font-weight: bold;
+}
+.number_of_passengers .passenger_three_layout{
+  border: 1px solid #0654a2;
+  padding: 20px 20px;
+  margin: 10px 0px;
+}
+.number_of_passengers .passenger_three_layout h3{
+  font-size: 15px;
+  padding-left: 20px;
+}
+.number_of_passengers .passenger_three_layout ul li{
+  font-size: 15px;
+  color: #000;
+  font-family: sans-serif;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+/*============================ error page style ===================================*/
+
+.error_page_container{
+  /* padding-top: 100px; */
+  padding-bottom: 200px;
+  text-align: center;
+  display: none;
+}
+.error_page_container h1{
+  font-size: 100px;
+  text-transform: capitalize;
+}
+.error_page_container a{
+  text-decoration: none;
+  margin-bottom: 50px;
+}
+.error_page_container a:hover{
+  text-decoration: none;
+}
+.error_page_row{
+  padding-top: 50px;
+}

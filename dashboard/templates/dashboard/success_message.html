@@ -1,0 +1,17 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content%}
+  <div class="container_dash_home">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="display-5">{{successMessage}}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p><a href="{% url 'add_bus_and_routes_dashboard' %}">Continue to add buss and routes</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock  %}

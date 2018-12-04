@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Digital Safari (DSafari) | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'customer/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'customer/css/w3file.css' %}">
+    <link rel="stylesheet" href="{% static 'customer/css/css.css' %}">
+    <link rel="stylesheet" href="{% static 'customer/fontawesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'customer/jqueryui/jquery-ui.css' %}">
+</head>
+<body>
+
+
+
+      {% block content %}{% endblock %}
+
+
+
+  <script type="text/javascript" src="{% static 'customer/js/jqueryfile.js' %}"></script>
+  <script type="text/javascript" src="{% static 'customer/jqueryui/jquery-ui.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'customer/js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'customer/js/customjs.js' %}"></script>
+  <script type="text/javascript" src="{% static 'customer/js/company1.js' %}"></script>
+</body>
+</html>

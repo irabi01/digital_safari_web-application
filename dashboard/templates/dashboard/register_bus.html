@@ -1,0 +1,71 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content %}
+<div class="container w3-card-4 register_new_bus">
+  <h1>Register new bus</h1>
+  <hr>
+  <form action="{% url 'register_bus_dashboard' %}" method="post">
+    {% csrf_token %}
+    <div class="bus_registration">
+      <div class="container">
+        {% if messages %}
+          {% for message in messages %}
+          <div class="w3-panel w3-display-container w3-green" id="success_message">
+           <span onclick="this.parentElement.style.display='none'"
+           class="w3-button w3-display-topright">OK</span>
+            <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
+          </div>
+          {% endfor %}
+        {% endif %}
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">Plate number *</label>
+              {{busR.plate_Number}}
+            </div>
+          </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="">bus type *</label>
+                {{busR.bus_Type}}
+              </div>
+            </div>
+          <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">number of seats *</label>
+              {{busR.seat_Number}}
+            </div>
+          </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="">bus class *</label>
+                {{busR.bus_class}}
+              </div>
+            </div>
+          <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">Company Name *</label>
+              {{busR.company_name}}
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <button type="submit" name="button" class="btn btn-sm register_bus_button_user">Register bus</button>
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+
+{% extends "digital_safari/base.html" %}
+{% block title %}Authentication - Registartion{% endblock %}
+{% block content %}
+  <div class="login_container">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+          <div class="login_center_column w3-card-4">
+            <!-- <h1>Digital Safari</h1>
+            <hr> -->
+            <h3>Sign up</h3>
+            <hr>
+            <div class="login_logo">
+              <center><img src="/static/customer/images/login.png" alt="login_logo image" class="img-fluid" width="30%"></center>
+            </div>
+            <!-- {% if messages %}
+              {% for message in messages %}
+                <div class="w3-panel w3-display-container w3-red">
+                 <span onclick="this.parentElement.style.display='none'"
+                 class="w3-button w3-display-topright btn-sm w3-hover-red w3-text-white">x</span>
+                  <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
+                </div>
+              {% endfor %}
+            {% endif %} -->
+            <form action="" method="post">
+              {% csrf_token %}
+              {{form}}
+              <div class="form-group">
+                  <button type="submit" name="button" class="btn btn-sm add_button_user ">register</button>
+              </div>
+            </form>
+            <!-- <hr>
+            <div class="form-group">
+              <button type="submit" name="button" class="btn btn-sm btn_login_with_google btn-block">Login with google <i class="fa fa-google-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="form-group">
+              <button type="submit" name="button" class="btn btn-sm btn_login_with_facebook btn-block">Login with facebook <i class="fa fa-facebook" aria-hidden="true"></i>
+              </button>
+            </div> -->
+          </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

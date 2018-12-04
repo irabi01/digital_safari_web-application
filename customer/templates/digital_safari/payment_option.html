@@ -1,0 +1,170 @@
+{% extends "digital_safari/base.html" %}
+{% block title %}Payment Options{% endblock %}
+{% block content %}
+{% include "digital_safari/header.html" %}
+<div class="form_for_live_search_routes">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="route_form_available_bus">
+          {% include "digital_safari/route_form_live_search.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="payment_option_container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+          <div class="payment_company">
+            <div class="passengers_details">
+              <h2>Passengers details</h2>
+            </div>
+            <div class="number_of_passengers">
+              <div class="passenger_one_layout w3-card-4">
+                <ul class="list-unstyled">
+                  <h3>Passenger 1</h3>
+                  <hr>
+                  <li>Full Name: Irabi Kassim</li>
+                  <li>Boarding Point: Ubungo</li>
+                  <li>Droping Point: Msamvu</li>
+                </ul>
+              </div>
+              <div class="passenger_two_layout w3-card-4">
+                <h3>Passenger 2</h3>
+                <hr>
+                <ul class="list-unstyled">
+                  <li>Full Name: Deus Byaba</li>
+                  <li>Boarding Point: Mbezi</li>
+                  <li>Droping Point: Dumira</li>
+                </ul>
+              </div>
+              <div class="passenger_three_layout w3-card-4">
+                <h3>Passenger 3</h3>
+                <hr>
+                <ul class="list-unstyled">
+                  <li>Full Name: Fred Nazari</li>
+                  <li>Boarding Point: Mbezi</li>
+                  <li>Droping Point: Nanenane</li>
+                </ul>
+              </div>
+            </div>
+            <div class="payment_method_selection">
+              <h1>Select payment method</h1>
+            </div>
+            <div class="payment_method_company">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3">
+                    <a href="#">
+                    <div class="tigopesa">
+                      tigo pesa
+                    </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="#">
+                    <div class="vodacom">
+                      m-pesa
+                    </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3"></div>
+                </div>
+                <div class="row bank_row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3">
+                    <a href="#">
+                    <div class="crdb_bank">
+                      CRDB Bank
+                    </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="#">
+                    <div class="nmb_bank">
+                      NMB Bank
+                    </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-5">
+        <div class="full_details_after_get_passenger_or_passnegers_info w3-card-4">
+          <div class="bus_details_heading">
+            <h2>bus details</h2>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td>Selected Seat(s): </td>
+                  <td>12, 30, 40</td>
+                </tr>
+                <tr>
+                  <td>Fare: </td>
+                  <td>{{full_details_to_payment_page.dail_fare}}/=</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td>Operator: </td>
+                  <td>{{full_details_to_payment_page.company_Name}}</td>
+                </tr>
+                <tr>
+                  <td>Route: </td>
+                  <td>{{full_details_to_payment_page.from_point}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{full_details_to_payment_page.to_point}}</td>
+                </tr>
+                <tr>
+                  <td>Departure Time: </td>
+                  <td>{{full_details_to_payment_page.time_of_travel}}</td>
+                </tr>
+                <tr>
+                  <td>Bus Type: </td>
+                  <td>Youtong</td>
+                </tr>
+                <tr>
+                  <td>Bus Class: </td>
+                  <td>{{full_details_to_payment_page.bus_class}}</td>
+                </tr>
+                <!--{# <tr>
+                  <td>Bording Point: </td>
+                  <td>Ubungo</td>
+                </tr>
+                <tr>
+                  <td>Droping Point: </td>
+                  <td>Gairo</td>
+                </tr> #}-->
+              </tbody>
+            </table>
+          </div>
+          <div class="important_note">
+            <div class="important_note_heading">
+              <h1>Important note</h1>
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item">1. Price listed does not include luggage price </li>
+              <li class="list-group-item">2. Ensure information provided is correct </li>
+              <li class="list-group-item">3. You will receive confirmation SMS/Email once your payment is confirmed </li>
+              <li class="list-group-item">4. Any booking unpaid until expiration date will automatically be cancelled </li>
+              <li class="list-group-item">5. Fares are not guaranteed until shabiby confirms your booking and payment is made in full </li>
+              <li class="list-group-item">5. <strong>Disclaimer:</strong> Shabiby may refuse carriage of you or your baggage if, in the exercise of our reasonable discretion, we determine either that the payment of your fare is fraudulent or the booking of your seat has been done fraudulently or unlawfully  </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  {% include "digital_safari/footer.html" %}
+{% endblock %}

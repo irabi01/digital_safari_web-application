@@ -1,0 +1,64 @@
+{% extends "digital_safari/base.html" %}
+{% block content %}
+  <div class="registration_container">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="registration_conter_column">
+            <h3>Customer infromation</h3>
+            <hr>
+            <div class="row">
+              <div class="col-md-6 digital_safari_hill">
+                <center><img src="/static/customer/images/register.gif" alt="digital_safari image" class="img-fluid"></center>
+              </div>
+              <div class="col-md-6">
+                <div class="registration_form_column">
+                  <form action="#" method="post">
+                    {% csrf_token %}
+                    <div class="name_container">
+                      <h4>name</h4>
+                      <div class="form-group">
+                        <input type="text" name="" placeholder="First Name" class="form-control" required="">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" name="" placeholder="Last Name" class="form-control" required="">
+                      </div>
+                    </div>
+                    <div class="contact_detail_container">
+                      <h4>contact details</h4>
+                      <div class="form-group">
+                        <input type="text" name="" placeholder="Phone Number" class="form-control" required="">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" name="" placeholder="E-mail Address" class="form-control" required="">
+                      </div>
+                    </div>
+                    <div class="login_info_container">
+                      <h4>login info</h4>
+                      <div class="form-group">
+                        <input type="text" name="" placeholder="Username" class="form-control" required="">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" name="" placeholder="Password" class="form-control" required="">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" name="" placeholder="Re-enter Password" class="form-control" required="">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" name="button" class="btn btn-sm btn_register btn-block">Register</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock  %}

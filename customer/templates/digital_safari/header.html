@@ -1,0 +1,47 @@
+<div class="w3-card-4">
+  <nav class="navbar fixed-top navbar-expand-lg navigation_bar w3-card-4">
+    <a class="navbar-brand" href="/">Digital Safari</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-list"></i>
+    </button>
+
+    <div class="collapse navbar-collapse w3-card-4" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {% block activehome %}{% endblock %}">
+          <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+        </li>
+        <li class="nav-item {% block activeabout %}{% endblock %}">
+          <a class="nav-link" href="{% url 'aboutpage' %}">About</a>
+        </li>
+        <!-- <li class="nav-item {% block activeoffer %}{% endblock %}">
+          <a class="nav-link" href="{% url 'homepage' %}">Offers</a>
+        </li> -->
+        <li class="nav-item {% block activecontact %}{% endblock %}">
+          <a class="nav-link" href="{% url 'contactpage' %}">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav  navbar-right mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Help
+          </a>
+          <div class="dropdown-menu w3-blue" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item w3-hover-black w3-text-white" href="#">Contact info(customers service)</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item w3-hover-black w3-text-white" href="#">How to use dsafari</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item w3-hover-black w3-text-white" href="#">How to pay on dsafari</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item w3-hover-black w3-text-white" href="#">F.A.Q(Frequently Ask Question)</a>
+          </div>
+        </li>
+        <!-- <li class="nav-item {% block activeregister %}{% endblock %}">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li> -->
+        <li class="nav-item {% block activelogin %}{% endblock %}">
+          <a class="nav-link" href="{% url 'login_user_customer' %}">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

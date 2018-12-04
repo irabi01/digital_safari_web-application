@@ -1,0 +1,50 @@
+from django.conf.urls import url, handler404
+from . import views as page
+# app_name = 'customer'
+# handler404 = 'customer.views.error404' not a right place to add this
+urlpatterns = [
+    url(r'^$', page.home, name ='homepage'),
+    url(r'^about/', page.about, name='aboutpage'),
+    url(r'^contact/', page.contact, name='contactpage'),
+    url(r'^user/auth/login/', page.login_user, name='login_user_customer'),
+    url(r'^results/available_routes/', page.availableRoutes, name='availableRoutes'),
+    url(r'^selected_bus/(?P<id>\d+)/seatlayout/', page.seatlayout, name='seatlayout'),
+    url(r'^selected_bus/(?P<id>\d+)/passengers_details_and_payment_option', page.payment_option, name='payment_option'),
+    url(r'^search/', page.search, name='search_route'),#not used
+    url(r'^25,000/', page.twelvethousand, name='25000'),
+
+    # filter search goes here
+    url(r'^available_routes/luxury/', page.search_luxury, name='search_luxury'),
+    url(r'^available_routes/semi_luxury/', page.search_semi_luxury, name='search_semi_luxury'),
+    url(r'^available_routes/ordinary_bus/', page.search_ordinary_bus, name='search_ordinary_bus'),
+    url(r'^available_routes/time_0600_am/', page._0600am, name='_0600am'),
+    url(r'^available_routes/time_0630_am/', page._0630am, name='_0630am'),
+    url(r'^available_routes/time_0700_am/', page._0700am, name='_0700am'),
+    url(r'^available_routes/time_0730_am/', page._0730am, name='_0730am'),
+    url(r'^available_routes/time_0800_am/', page._0800am, name='_0800am'),
+    url(r'^available_routes/time_0830_am/', page._0830am, name='_0830am'),
+    url(r'^available_routes/time_0900_am/', page._0900am, name='_0900am'),
+    url(r'^available_routes/time_0930_am/', page._0930am, name='_0930am'),
+    url(r'^available_routes/time_1000_am/', page._1000am, name='_1000am'),
+    url(r'^available_routes/time_1030_am/', page._1030am, name='_1030am'),
+    url(r'^available_routes/time_1100_am/', page._1100am, name='_1100am'),
+    url(r'^available_routes/time_1130_am/', page._1130am, name='_1130am'),
+    url(r'^available_routes/time_1200_pm/', page._1200pm, name='_1200pm'),
+    url(r'^available_routes/time_1230_pm/', page._1230pm, name='_1230pm'),
+    url(r'^available_routes/time_1300_pm/', page._1300pm, name='_1300pm'),
+    url(r'^available_routes/time_1330_pm/', page._1330pm, name='_1330pm'),
+    url(r'^available_routes/time_1400_pm/', page._1400pm, name='_1400pm'),
+    url(r'^available_routes/time_1430_pm/', page._1430pm, name='_1430pm'),
+    url(r'^available_routes/time_1500_pm/', page._1500pm, name='_1500pm'),
+    url(r'^available_routes/time_1530_pm/', page._1530pm, name='_1530pm'),
+    url(r'^available_routes/time_1600_pm/', page._1600pm, name='_1600pm'),
+    url(r'^available_routes/time_1630_pm/', page._1630pm, name='_1630pm'),
+    url(r'^available_routes/time_1700_pm/', page._1700pm, name='_1700pm'),
+    url(r'^available_routes/time_1730_pm/', page._1730pm, name='_1730pm'),
+    url(r'^available_routes/time_1800_pm/', page._1800pm, name='_1800pm'),
+    url(r'^available_routes/time_1830_pm/', page._1830pm, name='_1830pm'),
+    url(r'^available_routes/time_1900_pm/', page._1900pm, name='_1900pm'),
+    url(r'^available_routes/time_1930_pm/', page._1930pm, name='_1930pm'),
+    url(r'^available_routes/time_2000_pm/', page._2000pm, name='_2000pm'),
+    url(r'^available_routes/time_2030_pm/', page._2030pm, name='_2030pm'),
+]

@@ -1,0 +1,425 @@
+{% extends "digital_safari/base.html" %}
+{% block title %}Selected Seat{% endblock %}
+{% block content %}
+{% include "digital_safari/header.html" %}
+<div class="form_for_live_search_routes">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="route_form_available_bus">
+          {% include "digital_safari/route_form_live_search.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="seat_layout_container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="seat_container">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-3">
+                  {% include "dashboard/seat_status.html" %}
+                </div>
+                <div class="col-md-4">
+                  <div class="layout_of_seat">
+                    <div class="seat_chart">
+                      <h2>Seat layout for bus No: {{seat_layout_details.plate_Number}}</h2>
+                    </div>
+                    <div class="seats">
+                      <!--<h2>Seat section</h2>-->
+                      {% if seat_layout_details.plate_Number == 'T 994' %}
+                        {% include "seats/seatT994.html" %}
+                      {% elif seat_layout_details.plate_Number == 'T 995' %}
+                        {% include "seats/seatT995.html" %}
+                      {% elif seat_layout_details.plate_Number == 'T 996' %}
+                        {% include "seats/seatT996.html" %}
+                      {% elif seat_layout_details.plate_Number == 'T 997' %}
+                        {% include "seats/seatT997.html" %}
+                      {% else %}
+                          <h2>No seats</h2>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="next_process_after_seat_selected">
+                    <div class="bus_detail_seat_layout">
+                      <h2>bus details</h2>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-borderless">
+                        <tbody>
+                          <tr>
+                            <td>Selected Seat(s): </td>
+                            <td id="number-of-seats"></td>
+                          </tr>
+                          <tr>
+                            <td>Fare: </td>
+                            <td >Tshs. <span id="fare_part" style="display:none">{{seat_layout_details.dail_fare}}</span>/=</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <hr>
+                    <div class="table-responsive">
+                      <table class="table table-borderless">
+                        <tbody>
+                          <tr>
+                            <td>Operator: </td>
+                            <td>{{seat_layout_details.company_Name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Plate Number: </td>
+                            <td>{{seat_layout_details.plate_Number}}</td>
+                          </tr>
+                          <tr>
+                            <td>Route: </td>
+                            <td>{{seat_layout_details.from_point}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{seat_layout_details.to_point}}</td>
+                          </tr>
+                          <tr>
+                            <td>Departure Time: </td>
+                            <td>{{seat_layout_details.time_of_travel}}</td>
+                          </tr>
+                          <tr>
+                            <td>Bus Type: </td>
+                            <td>Youtong</td>
+                          </tr>
+                          <tr>
+                            <td>Bus Class: </td>
+                            <td>{{seat_layout_details.bus_class}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <a href="#" class="btn btn-sm btn-block tooltip-test proceed_to_personal_info" style='display:none' id="proceed_button" title="Proceed to passenger details form" data-toggle="modal" data-target=".personal_details_form">Proceed</a>
+                  </div>
+                </div>
+                <!--<div class="col-md-1"></div>-->
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Large modal  passenger details-->
+<div class="modal fade personal_details_form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <h1>Passenger Details</h1>
+      <center><h4>Selected Seat(s): <span id="totalCountSeat"> 0 </span></h4><center>
+        <p>Total Amount: <span id="fare_part" style="display:none"></span></p>
+
+    <!-- <div class='col-md-12'><button type='submit' name='button' class='btn btn-primary btnSubmit'>Proceed</button></div> -->
+      <hr>
+        <div class="container">
+
+          <form method="post" action="{% url 'payment_option' seat_layout_details.id %}">
+            {% csrf_token %}
+            <div class="container-fluid">
+              <div class="form_row" id="formDetails">
+
+              </div>
+              <div class="contact_details_for_payment">
+                <div class="row">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6">
+                    <p class="bg-success w3-text-white" style="padding:10px 20px;">These information will be used to send your ticket(s) details</p>
+                  </div>
+                  <div class="col-md-3"></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="" value="" class="form-control" placeholder="Mobile Number" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="email" name="" value="" class="form-control" placeholder="Email address" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="customCheck1">
+                      <label class="custom-control-label" for="customCheck1"><i class="fa fa-whatsapp" style="font-size:20px;"></i> Send booking details and updates on whatsApp number.</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row button_row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <button type="submit" name="button" class="btn btn-sm btn-block button_send_passenger_data" style="background:#0654a2; color:#fff; border-radius:0px">proceed to pay</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <span id="personalDetails"></span> -->
+            <!-- <div class="personal_container">
+              <div class="table-responsive">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td>Passenger 1 </td>
+                      <td>Seat No. A1</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" name="" value="" class="form-control" placeholder="First Name">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" name="" value="" class="form-control" placeholder="Last Name">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" name="" value="" class="form-control" placeholder="Bording Point" list="boarding_point">
+                      <datalist id="boarding_point">
+                        <option value="Ubungo">Ubungo</option>
+                        <option value="Mbezi">Mbezi</option>
+                        <option value="Kibaha">Kibaha</option>
+                    </datalist>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" name="" value="" class="form-control" placeholder="Droping Point" list="droping_point">
+                      <datalist id="droping_point">
+                        <option value="Ubungo">Ubungo</option>
+                        <option value="Mbezi">Mbezi</option>
+                        <option value="Kibaha">Kibaha</option>
+                    </datalist>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" name="" value="" class="form-control" placeholder="Gender" list="gender">
+                    <datalist id="gender">
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                  </datalist>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <td><input type="date" name="" value="" class="form-control"></td>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="peronal_address">
+                <h1>This information will be used to send your ticket(s) details</h1>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="" value="" class="form-control" placeholder="Mobile Number">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="email" name="" value="" class="form-control" placeholder="Email address">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="Radio_passenger" value="option1">
+                      <label class="form-check-label" for="exampleRadios1">
+                        Paying person
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+          </form>
+        <!--  <div class="personal_container">
+            <div class="table-responsive">
+              <table class="table table-borderless">
+                <tbody>
+                  <tr>
+                    <td>Passenger 2 </td>
+                    <td>Seat No. A2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" name="" value="" class="form-control" placeholder="First Name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" name="" value="" class="form-control" placeholder="Last Name">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="" value="" class="form-control" placeholder="Bording Point" list="boarding_point">
+                    <datalist id="boarding_point">
+                      <option value="Ubungo">Ubungo</option>
+                      <option value="Mbezi">Mbezi</option>
+                      <option value="Kibaha">Kibaha</option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="" value="" class="form-control" placeholder="Droping Point" list="droping_point">
+                    <datalist id="droping_point">
+                      <option value="Ubungo">Ubungo</option>
+                      <option value="Mbezi">Mbezi</option>
+                      <option value="Kibaha">Kibaha</option>
+                  </datalist>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" name="" value="" class="form-control" placeholder="Gender" list="gender">
+                  <datalist id="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </datalist>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <td><input type="date" name="" value="" class="form-control"></td>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Paying person
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <button type="submit" name="button" class="btn btn-sm save_info">proceed</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="personal_container">
+            <div class="table-responsive">
+              <table class="table table-borderless">
+                <tbody>
+                  <tr>
+                    <td>Passenger 3 </td>
+                    <td>Seat No. A3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" name="" value="" class="form-control" placeholder="First Name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" name="" value="" class="form-control" placeholder="Last Name">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="" value="" class="form-control" placeholder="Bording Point" list="boarding_point">
+                    <datalist id="boarding_point">
+                      <option value="Ubungo">Ubungo</option>
+                      <option value="Mbezi">Mbezi</option>
+                      <option value="Kibaha">Kibaha</option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" name="" value="" class="form-control" placeholder="Droping Point" list="droping_point">
+                    <datalist id="droping_point">
+                      <option value="Ubungo">Ubungo</option>
+                      <option value="Mbezi">Mbezi</option>
+                      <option value="Kibaha">Kibaha</option>
+                  </datalist>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" name="" value="" class="form-control" placeholder="Gender" list="gender">
+                  <datalist id="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </datalist>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <td><input type="date" name="" value="" class="form-control"></td>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Paying person
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <button type="submit" name="button" class="btn btn-sm save_info">proceed</button>
+                </div>
+              </div>
+            </div>
+          </div>-->
+
+        </div>
+    </div>
+  </div>
+</div>
+
+   {% include "digital_safari/footer.html" %}
+{% endblock %}

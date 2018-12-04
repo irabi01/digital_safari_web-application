@@ -1,0 +1,100 @@
+ {% extends "digital_safari/base.html" %}
+ {% block title %}Home{% endblock %}
+ {% block activehome %}active{% endblock %}
+ {% block content %}
+ {% include "digital_safari/header.html" %}
+ <!-- top section(home page)-->
+ <div class="home_container">
+   <div class="container">
+     <h1><q>Digital Safari.</q></h1>
+     <h3>Enjoy the perfect <strong class="journey_header w3-spin">journey</strong></h3>
+     <div class="row">
+       <!--<div class="col-md-2"></div>-->
+       <div class="col-md-12">
+         {% include "digital_safari/route_form.html" %}
+       </div>
+       <!--<div class="col-md-2"></div>-->
+     </div>
+   </div>
+ </div>
+
+<!-- Partner section(home page)-->
+ <div class="our_partners">
+   <div class="container">
+     <h1>Our Partners</h1>
+     <div class="row">
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+     </div>
+     <br>
+     <div class="row">
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+       <div class="col-md-2">
+         <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <!-- news letter section(home page)
+ <div class="news_letter_section">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-3">
+         <h3>Keep yourself updated</h3>
+       </div>
+       <div class="col-md-6">
+         <div class="row">
+           <div class="col-md-12">
+            <center>
+              <form class="form-inline">
+               <div class="form-group">
+                 <input type="text" name="" value="" placeholder="Enter your e-mail" class="w3-input">
+               </div>
+               <div class="form-group">
+                 <button type="submit" name="button" class="w3-btn btn-sm btn_subscribe">Subscribe</button>
+               </div>
+             </form>
+            </center>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-3">
+
+       </div>
+     </div>
+   </div>
+ </div>
+ -->
+ {% include "digital_safari/footer.html" %}
+ {% endblock %}

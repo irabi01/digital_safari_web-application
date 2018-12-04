@@ -1,0 +1,47 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content%}
+<div class="view_bus_container w3-card-4">
+  <div class="container">
+    <h1>List of Company</h1>
+    {% if messages %}
+      {% for message in messages %}
+      <div class="w3-panel w3-display-container w3-green">
+       <span onclick="this.parentElement.style.display='none'"
+       class="w3-button w3-display-topright">X</span>
+        <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
+      </div>
+      {% endfor %}
+    {% endif %}
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Tiny Number</th>
+                <th scope="col">Company Email</th>
+                <th scope="col">Business License</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for companies in company_list %}
+                <tr>
+                  <td>{{companies.id}}</td>
+                  <td>{{companies.company_name}}</td>
+                  <td>{{companies.tiny_number}}</td>
+                  <td>{{companies.email_address}}</td>
+                  <td>{{companies.business_license}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}

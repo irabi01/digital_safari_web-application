@@ -1,0 +1,365 @@
+{% extends "digital_safari/base.html" %}
+{% block title %}Routes{% endblock %}
+{% block content %}
+{% include "digital_safari/header.html" %}
+<div class="preload w3-card">
+  <img src="/static/customer/images/loader.gif" class="img-fluid" alt="loader">
+  <h2>Searching for your routes... please wait</h2>
+</div>
+
+<div class="available_content">
+
+<form name="route_form" action="{% url 'availableRoutes' %}" method="Post">
+  {% csrf_token %}
+  <div class="container_for_available_bus_and_routes">
+    <div class="hold_form_and_button_contents">
+        <div class="container">
+          <div class="row available_bus_row_one no-gutters">
+            <div class="col-md-3">
+              <div class="form-group">
+                <!--<span class="label label-default">From</span>-->
+                <div class="inputWithIcon">
+                  <input type="text" id="spoint" name="startingpoint" value="{{startingpoint}}"placeholder="From(Orign)" class="form-control" list="region_from" required>
+                  <i class="fa fa-home"></i>
+                  <datalist id="region_from">
+                    <option value="Arusha">Arusha</option>
+                    <option value="Bukoba">Bukoba</option>
+                    <option value="Dar es salaam">Dar es salaam</option>
+                    <option value="Dodoma">Dodoma</option>
+                    <option value="Mbeya">Mbeya</option>
+                    <option value="Mwanza">Mwanza</option>
+                    <option value="Morogoro">Morogoro</option>
+                    <option value="Kahama">Kahama</option>
+                    <option value="Kigoma">Kigoma</option>
+                    <option value="Kilimanjaro">Kilimanjaro</option>
+                    <option value="Tabora">Tabora</option>
+                    <option value="Tanga">Tanga</option>
+                    <option value="Ruvuma">Ruvuma</option>
+                    <option value="Iringa">Iringa</option>
+                    <option value="Sumbawanga">Sumbawanga</option>
+                    <option value="Lindi">Lindi</option>
+                    <option value="Mtwara">Mtwara</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Malindi">Malindi</option>
+                    <option value="Songea">Songea</option>
+                </datalist>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <!--<span class="label label-default">To</span>-->
+                <div class="inputWithIcon">
+                  <input type="text" id="fpoint" name="endpoint" value="{{endpoint}}"placeholder="To(Destination)" class="form-control" list="region_destination" required>
+                  <i class="fa fa-home"></i>
+                  <datalist id="region_destination">
+                    <option value="Arusha">Arusha</option>
+                    <option value="Bukoba">Bukoba</option>
+                    <option value="Dar es salaam">Dar es salaam</option>
+                    <option value="Dodoma">Dodoma</option>
+                    <option value="Mbeya">Mbeya</option>
+                    <option value="Mwanza">Mwanza</option>
+                    <option value="Morogoro">Morogoro</option>
+                    <option value="Kahama">Kahama</option>
+                    <option value="Kigoma">Kigoma</option>
+                    <option value="Kilimanjaro">Kilimanjaro</option>
+                    <option value="Tabora">Tabora</option>
+                    <option value="Tanga">Tanga</option>
+                    <option value="Ruvuma">Ruvuma</option>
+                    <option value="Iringa">Iringa</option>
+                    <option value="Sumbawanga">Sumbawanga</option>
+                    <option value="Lindi">Lindi</option>
+                    <option value="Mtwara">Mtwara</option>
+                    <option value="Mombasa">Mombasa</option>
+                    <option value="Malindi">Malindi</option>
+                    <option value="Songea">Songea</option>
+                </datalist>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <!--<span class="label label-default">Departure date</span>-->
+                <div class="inputWithIcon">
+                  <input type="text" id="departure" value="{{departuredate}}" name="departuredate"placeholder="Departure date" class="form-control" required>
+                  <i class="fa fa-calendar"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <!--<span class="label label-default">Return date</span>-->
+                <div class="inputWithIcon">
+                  <input type="text" id="return" name="returndate"placeholder="Return date" class="form-control">
+                  <i class="fa fa-calendar"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row available_bus_row_one_for_button">
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="hidden" id="for_searching_data" value="" name="for_searching_data"placeholder="dummy data" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <center><button type="submit" name="serchButton" class="btn btn-sm btn_search_route">Search route</button></center>
+              </div>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </div>
+        <!-- end of container one -->
+
+        <div class="available_bus_second_container">
+          <div class="container">
+            <div class="row">
+             <div class="col-md-12">
+              <div class="results_row">
+                <h1>{{get_routes}} results for {{startingpoint|capfirst|upper}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                {{endpoint|capfirst|upper}} on {{departuredate}}</h1>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of container two -->
+
+        <div class="available_bus_third_container">
+          <div class="container">
+            <div class="row available_bus_row_one">
+              <div class="col-md-3">
+               <div class="filter_area">
+                <div class="filter_area_heading">
+                  <h1>Filter bus <i class="fa fa-filter" aria-hidden="true"></i></h1>
+                </div>
+                <div class="filter_area_body">
+                  <div class="for_fare">
+                    <div class="filter_header">
+                      <h1>by fare</h1>
+                    </div>
+                    <div class="filter_list">
+                      <ul class="list-unstyled">
+                        <li><button type="submit" class="btn btn-sm fare_search" id="below_twenty">Below 25000/=</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm fare_search" id="kati_ya_twenty_to_thirty">25,000/= - 30,000/=</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm fare_search">30,000/= - 50,000</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm fare_search">Above 50,000/=</button></li>
+                      </ul>
+                    </div>
+                  </div
+
+                  <div class="for_bus_class">
+                    <div class="filter_header">
+                      <h1>by class</h1>
+                    </div>
+                    <div class="filter_list">
+                      <ul class="list-unstyled">
+                        <li><button class="btn btn-sm class_search" id="luxury">Luxury</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button class="btn btn-sm class_search" id="semi_luxury">Semi-Luxury</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button class="btn btn-sm class_search" id="ordinary">Ordinary</button></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="for_amenities">
+                    <div class="filter_header">
+                      <h1>by amenities</h1>
+                    </div>
+                    <div class="filter_list">
+                      <ul class="list-unstyled">
+                        <li><button type="submit" class="btn btn-sm amenities_search">All Amenities</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">3 Amenities</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">2 Amenities</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">1 Amenity</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">TV + Wi-Fi</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">TV + Charging System</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">TV + Soda</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">Soda</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">Charging System</button></li>
+                        <div class="dropdown-divider"></div>
+                        <li><button type="submit" class="btn btn-sm amenities_search">Wi-Fi</button></li>
+                      </ul>
+                    </div>
+                  </div>
+
+              <div class="for_departure_time">
+                <div class="filter_header">
+                  <h1>by departure time</h1>
+                </div>
+                <div class="filter_list">
+                  <ul class="list-unstyled">
+                    <li><button type="submit" class="btn btn-sm time_search" id="_0600am">06:00am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_0630am">06:30am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_0700am">07:00am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_0730am">07:30am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_0800am">08:00am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_0830am">08:30am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_0900am">09:00am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_0930am">09:30am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1000am">10:00am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1030am">10:30am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1100am">11:00am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1130am">11:30am</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1200pm">12:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1230pm">12:30pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1300pm">13:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1330pm">13:30pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1400pm">14:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1430pm">14:30pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1500pm">15:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1530pm">15:30pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1600pm">16:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1630pm">16:30pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1700pm">17:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1730pm">17:30pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1800pm">18:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1830pm">18:30pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1900pm">19:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_1930pm">19:30pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_2000pm">20:00pm</button></li>
+                    <div class="dropdown-divider"></div>
+                    <li><button type="submit" class="btn btn-sm time_search" id="_2030pm">20:30pm</button></li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="col-md-9">
+
+          <!-- <ul id = "search_results">
+            {{filtered_Routes.to_point}}
+          </ul> -->
+
+           {% for bus_routes in countRoutes %}
+             <div class="center_column_available_bus" id="center_column_available_bus">
+               <div class="table-responsive">
+                 <table class="table table-borderless table-sm">
+                   <thead class="thead_dark">
+                     <tr>
+                       <th scope="col">Operator</th>
+                       <th scope="col">Route</th>
+                       <th scope="col">Departure</th>
+                       <th scope="col">Arrival</th>
+                       <th scope="col">Seats Available</th>
+                       <th scope="col">Class</th>
+                       <th scope="col">Fare</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <!-- <tr>
+                       <td>Time of Travel: <strong>{{bus_routes.time_of_travel}}</strong> | {{bus_routes.from_point}}</td>
+                       <td>Arriving Time: <strong>{{bus_routes.arrival_Time}}</strong> | {{bus_routes.to_point}}</td>
+                       <td>Fare: <strong>{{bus_routes.dail_fare}}/=</strong></td>
+                     </tr>
+                     <tr>
+                       <td>Operator: <strong>{{bus_routes.company_Name}}</strong></td>
+                       <td>Available Seats: <strong>{{bus_routes.to_point}}</strong></td>
+                       <td>Bus Class: <strong>{{bus_routes.bus_class}}</strong></td>
+                     </tr> -->
+                     <tr>
+                       <td><strong>{{bus_routes.company_Name}}</strong></td>
+                       <td><strong>{{bus_routes.from_point}}</strong> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <strong>{{bus_routes.to_point}}</strong></td>
+                       <td><strong>{{bus_routes.time_of_travel}}</strong></td>
+                       <td><strong>{{bus_routes.arrival_Time}}</strong></td>
+                       <td>{{bus_routes.to_point}}</td>
+                       <td><strong>{{bus_routes.bus_class}}</strong></td>
+                       <td id="nauli_list">Tshs. <strong>{{bus_routes.dail_fare}}.00/=</strong></td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </div>
+               <div class="dropdown-divider"></div>
+               <h2>Amenities</h2>
+               <div class="table-responsive">
+                 <table class="table table-borderless">
+                   <tbody>
+                     {% if bus_routes.amenity1 == 'Television' and bus_routes.amenity2 == 'Wi-fi' and bus_routes.amenity3 == 'Charging-service' and bus_routes.amenity4 == 'Drinks' %}
+                       {% include "amenities/all_amenities.html" %}
+                     {% elif bus_routes.amenity1 == 'Television' and bus_routes.amenity2 == 'Wi-fi' and bus_routes.amenity3 == 'Charging-service' %}
+                       {% include "amenities/tv_charging_wifi.html" %}
+                     {% elif bus_routes.amenity1 == 'Television' and bus_routes.amenity4 == 'Drinks' and bus_routes.amenity3 == 'Charging-service' %}
+                       {% include "amenities/tv_charging_soda.html" %}
+                     {% elif bus_routes.amenity1 == 'Television' and bus_routes.amenity3 == 'Charging-service' %}
+                       {% include "amenities/tv_charging.html" %}
+                     {% elif bus_routes.amenity1 == 'Television' and bus_routes.amenity2 == 'Wi-fi' %}
+                       {% include "amenities/tv_wifi.html" %}
+                     {% elif bus_routes.amenity1 == 'Television' and bus_routes.amenity4 == 'Drinks' %}
+                       {% include "amenities/tv_soda.html" %}
+                     {% elif bus_routes.amenity1 == 'Television' %}
+                       {% include "amenities/tv.html" %}
+                     {% elif bus_routes.amenity2 == 'Wi-fi' %}
+                       {% include "amenities/wifi.html" %}
+                     {% elif bus_routes.amenity4 == 'Drinks' %}
+                       {% include "amenities/soda.html" %}
+                     {% else %}
+                       {% include "amenities/none_amenities.html" %}
+                     {% endif %}
+                   </tbody>
+                 </table>
+               </div>
+
+             </div>
+           {% endfor %}
+        </div>
+
+
+        </div>
+
+        </div>
+        </div>
+        </div>
+        <!-- end of container three -->
+
+    </div>
+    </form>
+    {% include "digital_safari/footer.html" %}
+  </div>
+</div>
+
+
+{% endblock %}

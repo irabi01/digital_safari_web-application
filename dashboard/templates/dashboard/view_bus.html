@@ -1,0 +1,53 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content%}
+<div class="view_bus_container w3-card-4">
+  <div class="container">
+    <h1>registered bus</h1>
+    {% if messages %}
+      {% for message in messages %}
+      <div class="w3-panel w3-display-container w3-green">
+       <span onclick="this.parentElement.style.display='none'"
+       class="w3-button w3-display-topright">X</span>
+        <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
+      </div>
+      {% endfor %}
+    {% endif %}
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Plate Number</th>
+                <th scope="col">Bus Type</th>
+                <th scope="col">Number of Seat</th>
+                <th scope="col">Bus Class</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for bDetails in bus_detail %}
+              <tr>
+                <td>{{bDetails.id}}</td>
+                <td>{{bDetails.company_name}}</td>
+                <td>{{bDetails.plate_Number}}</td>
+                <td>{{bDetails.bus_Type}}</td>
+                <td>{{bDetails.seat_Number}}</td>
+                <td>{{bDetails.bus_class}}</td>
+                <td>
+                  <center><a href="{% url 'delete_bus_dashboard' bDetails.id %}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> &nbsp&nbsp <a href="{% url 'update_reg_bus_dashboard' bDetails.id %}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a></center>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}

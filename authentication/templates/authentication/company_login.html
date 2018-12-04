@@ -1,0 +1,40 @@
+{% extends "digital_safari/base.html" %}
+{% block content %}
+  <div class="company_login_container">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+          <div class="company_login_conter_column">
+            <h3>Company login</h3>
+            <hr>
+            <div class="company_login_logo">
+              <center><img src="/static/customer/images/login_07.gif" alt="company_login_logo image" class="img-fluid" width="50%"></center>
+            </div>
+            <form action="#" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <input type="text" name="" placeholder="Company Code" class="form-control" required autofocus="">
+              </div>
+              <div class="form-group">
+                <input type="text" name="" placeholder="Username" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <input type="password" name="" placeholder="Password" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <button type="submit" name="button" class="btn btn-sm btn_login_company btn-block">Login <i class="fa fa-sign-in" aria-hidden="true"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock  %}
