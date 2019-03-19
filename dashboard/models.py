@@ -1,6 +1,23 @@
 from django.db import models
+from django.contrib.auth.models import User
+# from django.db.models.signals import post_save
+# from django.dispatch import receiver
+
 
 # Create your models here.
+class CompanyInformation(models.Model):
+    company_name = models.CharField(max_length = 100)
+    tiny_number = models.CharField(max_length = 100)
+    email_address = models.EmailField(max_length = 100)
+    phone_number = models.CharField(max_length = 20)
+    business_license = models.CharField(max_length = 100)
+    # staff_status = models.CharField(max_length = 50, default = 'Administrator')
+    class Meta:
+        verbose_name_plural = "Company Information"
+    def __str__(self):
+        return self.company_name
+
+
 class BusRegistartion(models.Model):
     aina_ya_bus = (
         ('Yutong','Yutong'),('Zhong Tong','Zhong Tong'),('Golden Dragon','Golden Dragon')
@@ -10,7 +27,7 @@ class BusRegistartion(models.Model):
     )
     plate_Number = models.CharField(max_length = 20)
     seat_Number = models.CharField(max_length=5)
-    company_name = models.CharField(max_length = 50)
+    company_name = models.CharField(max_length=50)
     bus_Type = models.CharField(max_length=50, choices = aina_ya_bus)
     bus_class = models.CharField(max_length=50, choices = aina_ya_class)
     class Meta:
@@ -19,9 +36,6 @@ class BusRegistartion(models.Model):
         return self.plate_Number
 
 class BusAndRoutes(models.Model):
-    aina_ya_class = (
-        ('Luxury','Luxury'),('Semi-Luxury','Semi-Luxury'),('Ordinary','Ordinary')
-    )
     amenity_one = (
         ('Television','Television'),('None','None')
     )
@@ -68,13 +82,12 @@ class BusAndRoutes(models.Model):
         ('18:00pm','18:00pm'),('18:30pm','18:30pm'),('19:00pm','19:00pm'),('19:30pm','19:30pm'),
         ('20:00pm','20:00pm'),('20:30pm','20:30pm'),('21:00pm','21:00pm'),('21:30pm','21:30pm'),
     )
-    plate_Number = models.CharField(max_length = 20)
-    bus_class = models.CharField(max_length=50, choices = aina_ya_class)
+    plate_Number = models.ForeignKey(BusRegistartion, on_delete = models.CASCADE)
     from_point = models.CharField(max_length=50, choices = form_orign)
     to_point = models.CharField(max_length=50, choices = to_destination)
     departure_date = models.CharField(max_length=50)
     time_of_travel = models.CharField(max_length=50, choices = travell_time)
-    company_Name = models.CharField(max_length=50)
+    company_name = models.CharField(max_length=50)
     arrival_Time = models.CharField(max_length=50, choices = time_arrival)
     driver_name = models.CharField(max_length=50)
     assistant_name = models.CharField(max_length=50)
@@ -86,35 +99,19 @@ class BusAndRoutes(models.Model):
     class Meta:
         verbose_name_plural = "Bus And Routes Registration"
     def __str__(self):
-        return self.plate_Number
-
+        return self.plate_Number.plate_Number
 
 class CompanyStaff(models.Model):
     staffStatus = (
-        ('Receptionist','Receptionist'),('Driver','Driver'),('Assistant','Assistant'),('Cargo-owner','Cargo-owner')
+        ('Receptionist','Receptionist'),
+        ('Driver','Driver'),('Assistant','Assistant'),
+        ('Cargo-owner','Cargo-owner'),('Administrator','Administrator')
     )
-    # first_name = models.CharField(max_length = 50)
-    # last_name = models.CharField(max_length = 50)
-    company_name = models.CharField(max_length = 100)
+    user = models.OneToOneField(User, related_name='user', on_delete = models.CASCADE)
+    company_name = models.CharField(max_length = 50)
     phone_number = models.CharField(max_length = 20)
-    email_address = models.EmailField(max_length = 100)
-    # username = models.CharField(max_length = 100)
-    # password = models.CharField(max_length = 100)
     staff_status = models.CharField(max_length = 100, choices = staffStatus)
     class Meta:
         verbose_name_plural = "Company Staff"
     def __str__(self):
-        return self.first_name+ ' ' +self.last_name+ ' '+'from '+self.company_name
-
-
-class CompanyInformation(models.Model):
-    company_name = models.CharField(max_length = 50)
-    tiny_number = models.CharField(max_length = 50)
-    email_address = models.EmailField(max_length = 100)
-    phone_number = models.CharField(max_length = 20)
-    business_license = models.CharField(max_length = 100)
-    staff_status = models.CharField(max_length = 50, default = 'Administrator')
-    class Meta:
-        verbose_name_plural = "Company Information"
-    def __str__(self):
-        return self.company_name
+        return self.user.username

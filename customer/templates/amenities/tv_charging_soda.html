@@ -1,12 +1,22 @@
-<<tr>
-  <td><i class="fa fa-television" aria-hidden="true"></i></td>
-  <td><i class="fa fa-times" aria-hidden="true"></i></td>
-  <td><i class="fa fa-usb" aria-hidden="true"></i></td>
-  <td>
-    <i class="fa fa-send" aria-hidden="true"></i>
-    <!-- <img src="/static/customer/images/lala.png" alt="seat" class="img-fluid" width="4%"> -->
-  </td>
-  <!-- <td><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp<i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp<i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp<i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp<i class="fa fa-heart-o" aria-hidden="true"></i></td> -->
-  <td></td>
-  <td><a href="{% url 'seatlayout' bus_routes.id %}" class="w3-btn btn-sm">view seats</a></td>
-</tr>
+<div class="row amenities_row">
+  <!-- <div class="amenities_container"> -->
+    <div class="col-md-2">
+      <i class="fa fa-television" aria-hidden="true"></i>
+    </div>
+    <div class="col-md-2">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div class="col-md-2">
+      <i class="fa fa-usb" aria-hidden="true"></i>
+    </div>
+    <div class="col-md-2">
+      <i class="fa fa-send" aria-hidden="true"></i>
+    </div>
+    <div class="col-md-2">
+      <p><strong>Class: {{r.plate_Number.bus_class}}</strong></p>
+    </div>
+    <div class="col-md-2">
+      <a href="{% url 'seatlayout' r.id %}" class="w3-btn btn-sm">view seats</a>
+    </div>
+  <!-- </div> -->
+</div>

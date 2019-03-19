@@ -28,8 +28,8 @@ background-repeat: no-repeat;
 background-size: cover;
 background-attachment: fixed;
 color: #fff;
-padding-top: 250px;
-padding-bottom: 100px;
+padding-top: 150px;
+padding-bottom: 50px;
 }
 .home_container h1, h3{
   text-align:center;
@@ -95,7 +95,8 @@ padding-bottom: 100px;
 }
 .form_container{
   background: #0654a2;
-  padding: 50px 50px;
+  padding-top: 20px;
+  /* padding-bottom: 10px; */
   border-top-left-radius: 50px;
   border-bottom-right-radius: 50px;
 }
@@ -133,15 +134,22 @@ padding-bottom: 100px;
 .btn_search_route{
   border-radius: 20px;
   border: none;
-  width: 50%;
+  /* width: 100%; */
   height: 30px;
   text-transform: capitalize;
+}
+.search_form_row{
+  background: #fff;
+  padding-top: 20px;
+  border-radius: 70px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .form_container input{
     border: none;
-    border-radius: 20px;
+    border-radius: 0px;
   }
   .home_container h1{
     font-size: 30px;
@@ -434,6 +442,56 @@ padding-bottom: 100px;
   text-align: center;
   text-transform: capitalize;
 }
+.search_form{
+  margin: 20px 0px;
+}
+.search_form input[type=text]{
+  text-align: center;
+  font-weight: bold;
+}
+
+.amenities_row a{
+  background: #0654a2;
+  color: #fff;
+  width: 100px;
+  text-decoration: none;
+  border-radius: 0px;
+  border: none;
+}
+
+.search_route_available_bus{
+  background: #fff;
+}
+.route_contents{
+  padding: 20px 10px;
+  margin: 20px 0px;
+  border: 2px solid #0654a2;
+  border-radius: 10px;
+}
+.route_contents h5{
+  font-size: 13px;
+  font-weight: 900;
+}
+.route_contents p{
+  font-size: 13px;
+}
+.route_contents h1{
+  font-size: 15px;
+  font-weight: bold;
+}
+.total_route{
+  background: #0654a2;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0px;
+  padding: 10px 0px;
+}
+.total_route h1{
+  font-size: 15px;
+}
+
 
 .filter_header h1{
   font-size: 15px;
@@ -491,20 +549,29 @@ padding-bottom: 100px;
 }
 .form_for_live_search_routes{
   background: #0654a2;
-  padding: 100px 0px;
+  padding-top: 100px;
+  padding-bottom: 20px;
+  /* padding-left:50px */
 }
+/* .form_for_live_search_routes input[type=text]:first-child{
+  margin-left: 10px;
+} */
 .form_for_live_search_routes input[type=text]{
   width: 100%;
   height: 40px;
   border-radius: 0px;
-  border: none;
-  /* font-family: "Source Sans Pro", "Arial", sans-serif; */
-  /* font-family: monospace; */
+  border-bottom: 1px solid #3399ff;
   font-family: 'Montserrat', sans-serif;
 }
-
-
-
+.form_for_live_search_routes input[type=text]:focus{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #3399ff;
+  color: #000;
+  /* background: #ff0000; */
+  font-weight: bold;
+}
 
 
 
@@ -572,12 +639,13 @@ padding-bottom: 100px;
   background: #3399ff;
 }
 .side_navigation_dashboard{
-  background: #fff;
+  /* background: #fff; */
+  background: #0654a2;
 }
 .side_navigation_dashboard a{
   text-decoration: none;
   line-height: 30px;
-  color: #000;
+  color: #fff;
   font-size: 15px;
   text-transform: capitalize;
 }
@@ -733,10 +801,17 @@ padding-bottom: 100px;
   padding: 20px 10px;
 }
 
-
-
-
-
+.prof_container{
+  padding-top: 50px;
+}
+.prof_container h1{
+  font-size: 20px;
+  text-align: center;
+}
+.prof_container .profile_container table tr td{
+  font-weight: bold;
+  text-transform: capitalize;
+}
 
 
 
@@ -1096,54 +1171,38 @@ div.seatDesigns-seat:hover{
 .number_of_passengers{
   padding: 20px 20px;
 }
-.number_of_passengers .passenger_one_layout{
+.number_of_passengers .passenger_payment_layout{
   border: 1px solid #0654a2;
   padding: 20px 20px;
   margin: 10px 0px;
+  border-radius: 20px;
 }
-.number_of_passengers .passenger_one_layout h3{
+.number_of_passengers .passenger_payment_layout h3{
   font-size: 15px;
   padding-left: 20px;
 }
-.number_of_passengers .passenger_one_layout ul li{
+.number_of_passengers .passenger_payment_layout table tbody{
   font-size: 15px;
   color: #000;
   font-family: sans-serif;
-  line-height: 40px;
   font-weight: bold;
+  text-transform: capitalize;
 }
-.number_of_passengers .passenger_two_layout{
-  border: 1px solid #0654a2;
-  padding: 20px 20px;
-  margin: 10px 0px;
-}
-.number_of_passengers .passenger_two_layout h3{
+.btn_print_ticket{
+  background: #3399ff;
+  border-radius: 20px;
+  border: none;
+  width: 100%;
   font-size: 15px;
-  padding-left: 20px;
-}
-.number_of_passengers .passenger_two_layout ul li{
-  font-size: 15px;
-  color: #000;
-  font-family: sans-serif;
-  line-height: 40px;
   font-weight: bold;
+  text-transform: capitalize;
+  color: #fff;
 }
-.number_of_passengers .passenger_three_layout{
-  border: 1px solid #0654a2;
-  padding: 20px 20px;
-  margin: 10px 0px;
+.btn_print_ticket:hover{
+  text-decoration: none;
+  color: #fff;
 }
-.number_of_passengers .passenger_three_layout h3{
-  font-size: 15px;
-  padding-left: 20px;
-}
-.number_of_passengers .passenger_three_layout ul li{
-  font-size: 15px;
-  color: #000;
-  font-family: sans-serif;
-  line-height: 40px;
-  font-weight: bold;
-}
+
 
 /*============================ error page style ===================================*/
 
@@ -1166,4 +1225,171 @@ div.seatDesigns-seat:hover{
 }
 .error_page_row{
   padding-top: 50px;
+}
+
+/* .dashboard_search_route */
+.dashboard_search_route{
+  padding-top: 20px 30px;
+}
+.dashboard_search_route form button{
+  border-radius: 100px;
+  height: 30px;
+  width: 100%;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.searched_route{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border: 1px solid #0654a2;
+  border-radius: 10px;
+  margin: 0 20px;
+}
+.searched_route a{
+  text-align: center;
+  background: #0654a2;
+  border-radius: 20px;
+  text-transform: capitalize;
+  width: 50%;
+}
+.route_list{
+  padding: 10px 10px;
+}
+
+/* passenger_details_part */
+.passenger_row{
+  border: 1px solid #0654a2;
+  padding: 20px 20px;
+  margin: 4px;
+  border-radius: 10px;
+}
+.message_cancel_ticket{
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: #fff;
+  background: #3399ff;
+}
+.message_cancel_ticket h1{
+  font-size: 15px;
+}
+.passenger_row p{
+  font-size: 15px;
+}
+.passenger_details_part{
+  padding: 20px 10px;
+  border: 1px solid #0654a2;
+  border-radius: 10px;
+  margin: 20px 0px;
+}
+.passenger_details_part .details{
+  text-align: center;
+}
+.passenger_details_part .details h3{
+  font-size: 20px;
+  /* font-weight: bold; */
+}
+.passenger_details_part form input{
+  border: 1px solid #0654a2;
+}
+.passenger_details_part button{
+  border-radius: 0px;
+  background: #0654a2;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+/*================================== report page style ========================*/
+.report_page{
+  padding: 50px 0px;
+}
+.report_page h1{
+  font-size: 20px;
+  text-align: center;
+}
+.report_page span i{
+  font-size: 25px;
+  padding: 10px 5px;
+}
+
+
+.layout_of_seat_dashboard{
+  border: 1px solid #0654a2;
+  margin: 20px 0px;
+}
+.layout_of_seat_dashboard .seats{
+  padding: 10px 20px;
+}
+
+
+/* custome_container dashboard */
+.custome_container{
+  padding: 40px 0px;
+}
+.custome_container h2{
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+.custome_container p{
+  text-align: center;
+}
+.custome_container form{
+  margin-bottom: 10px;
+}
+.custome_container form input[type = 'text']{
+  /* border-radius: 20px; */
+  padding-left: 10px;
+}
+
+/* container_dash_home */
+.container_dash_home{
+  padding: 100px 0px;
+  text-align: center;
+}
+.container_dash_home h1{
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+.container_dash_home .number_of_bus{
+  border-radius: 10px;
+  background: #ff8899;
+  color: #fff;
+  text-align: center;
+  padding: 50px 50px;
+  margin: 4px;
+}
+.container_dash_home .number_of_staff{
+  border-radius: 10px;
+  background: #8e0014;
+  color: #fff;
+  text-align: center;
+  padding: 50px 50px;
+  margin: 4px;
+}
+.container_dash_home .number_of_customers{
+  border-radius: 10px;
+  background: #000022;
+  color: #fff;
+  text-align: center;
+  padding: 50px 50px;
+  margin: 4px;
+}
+.container_dash_home i{
+  font-size: 50px;
+}
+.container_dash_home p{
+  font-size: 15px;
+  font-weight: bold;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+.container_dash_home h2{
+  font-size: 25px;
+  font-weight: bold;
+  font-family: comic;
 }

@@ -1,0 +1,21 @@
+{% extends "digital_safari/base.html" %}
+{% block title %}Server error{% endblock %}
+{% block content %}
+{% include "digital_safari/header.html" %}
+
+<div class="erro_page_contents_container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="_error_contents">
+            <h1>5<span>0</span>0</h1>
+            <h2>There are something went wrong</h2>
+            <a href="{% url 'homepage' %}" class="btn btn-sm erro_button">home page</a>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include "digital_safari/footer.html" %}
+{% endblock %}

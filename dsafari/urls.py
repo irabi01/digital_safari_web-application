@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.conf.urls import url, include
 
 handler404 = 'customer.views.error404'
+handler500 = 'customer.views.error500'
 
 urlpatterns = [
     url(r'admin/', admin.site.urls),

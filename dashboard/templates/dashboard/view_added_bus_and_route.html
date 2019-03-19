@@ -3,16 +3,16 @@
 {% block content%}
 <div class="view_bus_container w3-card-4">
   <div class="container">
-  <h1>List of added bus and routes</h1>
-    {% if messages %}
-      {% for message in messages %}
-      <div class="w3-panel w3-display-container w3-green">
-       <span onclick="this.parentElement.style.display='none'"
-       class="w3-button w3-display-topright">X</span>
-        <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
-      </div>
-      {% endfor %}
-    {% endif %}
+  <h1>List of added bus and routes <span class="badge badge-primary badge-pill">{{count_route_info}}</span></h1>
+  {% if messages %}
+    {% for message in messages %}
+    <div class="w3-panel w3-display-container message_cancel_ticket">
+     <span onclick="this.parentElement.style.display='none'"
+     class="w3-button w3-display-topright">x</span>
+      <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
+    </div>
+    {% endfor %}
+  {% endif %}
     <hr>
     <div class="row">
       <div class="col-md-12">
@@ -37,7 +37,7 @@
                 <tr>
                   <!-- <td>{{routes.company_Name}}</td> -->
                   <td>{{routes.plate_Number}}</td>
-                  <td>{{routes.bus_class}}</td>
+                  <td>{{routes.plate_Number.bus_class}}</td>
                   <td>{{routes.from_point}}</td>
                   <td>{{routes.to_point}}</td>
                   <td>{{routes.departure_date}}</td>
@@ -45,73 +45,15 @@
                   <td>{{routes.arrival_Time}}</td>
                   <td>{{routes.dail_fare}}</td>
                   <td>
-                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
+                    <a href="{% url 'delete_bus_route' routes.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delte this bus?')"><i class="fa fa-trash"></i></a>
+                    <a href="{% url 'update_bus_route' routes.id %}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
+                    <a href="{% url 'view_bus_route' routes.id %}" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                   </td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
-
-        <!-- {% for routes in route_info %}
-          <div class="container_ya_added_bus">
-
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table table-borderless table-sm">
-                  <tbody>
-                    <tr>
-                      <td>Operator: <strong>{{routes.company_Name}}</strong></td>
-                      <td>Plate Number: <strong>{{routes.plate_Number}}</strong></td>
-                      <td>From(Orign): <strong>{{routes.from_point}}</strong></td>
-                      <td>To(Destination): <strong>{{routes.to_point}}</strong></td>
-                      <td>Departure Date: <strong>{{routes.departure_date}}</strong></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table table-borderless table-sm">
-                  <tbody>
-                    <tr>
-                      <td>Time of Travel: <strong>{{routes.time_of_travel}}</strong> | {{routes.from_point}}</td>
-                      <td>Arriving Time: <strong>{{routes.arrival_Time}}</strong> | {{routes.to_point}}</td>
-                      <td>Available Seats: <strong>{{bus_routes.to_point}}</strong></td>
-                      <td>Fare: <strong>{{routes.dail_fare}}/=</strong></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table table-borderless table-sm">
-                  <tbody>
-                    <tr>
-                      <td>Television: <strong>{{routes.amenity1}}</strong></td>
-                      <td>Wi-fi: <strong>{{routes.amenity2}}</strong></td>
-                      <td>Charging System: <strong>{{routes.amenity3}}</strong></td>
-                      <td>Drinks: <strong>{{routes.amenity4}}</strong></td>
-                      <td><a href="#" class="btn btn-block btn-danger"><i class="fa fa-trash"></i></a></td>
-                      <td><a href="#" class="btn btn-block btn-primary"><i class="fa fa-pencil"></i></a></td>
-                      <td><a href="#" class="btn btn-block btn-warning"><i class="fa fa-eye"></i></a></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-          </div>
-          <br><br>
-        {% endfor %} -->
-
       </div>
     </div>
   </div>

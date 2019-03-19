@@ -1,0 +1,214 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content %}
+<div class="container w3-card-4 add_customer_admn_part">
+  <h1>Search for routes</h1>
+  <hr>
+  <div class="dashboard_search_route">
+    {% include 'dashboard/route_form.html' %}
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="seat_status">
+        {% include 'dashboard/seat_status.html' %}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="layout_of_seat_dashboard">
+        <div class="seat_chart">
+          <h2>Seat layout for bus No: {{bus_details.plate_Number}}</h2>
+        </div>
+        <div class="seats">
+          <!--<h2>Seat section</h2>-->
+          {% if bus_details.plate_Number.plate_Number == 'T 994' %}
+            {% include "seats/seatT994.html" %}
+          {% elif bus_details.plate_Number.plate_Number == 'T 995' %}
+            {% include "seats/seatT995.html" %}
+          {% elif bus_details.plate_Number.plate_Number == 'T 996' %}
+            {% include "seats/seatT996.html" %}
+          {% elif bus_details.plate_Number.plate_Number == 'T 997' %}
+            {% include "seats/seatT997.html" %}
+          {% else %}
+              <h2>No seats</h2>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="passenger_details_part">
+        <div class="details">
+          <h3>Passenger details</h3>
+        </div>
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="first_name" value="" placeholder="First name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="last_name" value="" placeholder="Last name">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="number" name="seat_number" value="" placeholder="seat number">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="number" name="nauli" value="" placeholder="Fare">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="secrete_code" id="secrete_code" value="" placeholder="secreten code">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="ticket_number" value="" placeholder="ticket number">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="boarding_point" value="" placeholder="Boarding point">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="droping_point" value="" placeholder="Dropping point">
+              </div>
+            </div>
+          </div>
+          <hr>
+          <h1>Payment details</h1>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="phone_number" value="" placeholder="phone number">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="email" name="email_address" value="" placeholder="email address">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="total_amount" value="{{bus_details.dail_fare}}" placeholder="total amount">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="total_seat" value="1" placeholder="number of seats">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="refence_number" value=" DTHGSBE87D" placeholder="reference number">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="payment_status" value="not paid" placeholder="payment status">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="secrete_code" id="secrete_c" value="" placeholder="secrete code">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="plate_number" value="{{bus_details.plate_Number.plate_Number}}" placeholder="plate number">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="company_name" value="{{bus_details.company_name}}" placeholder="company name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="from_" value="{{bus_details.from_point}}" placeholder="from(orign)">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="to_" value="{{bus_details.to_point}}" placeholder="To(Destination)">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="date_of_travel" value="{{bus_details.departure_date}}" placeholder="Date of Travel">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="time_of_travel" value="{{bus_details.time_of_travel}}" placeholder="Time of Travel">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="arrival_time" value="{{bus_details.arrival_Time}}" placeholder="Arrival Time">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="bus_type" value="{{bus_details.plate_Number.bus_Type}}" placeholder="Bus Type">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" name="bus_class" value="{{bus_details.plate_Number.bus_class}}" placeholder="Bus Class">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" name="button" class="btn btn-sm btn-block">issue ticket</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    var string_length = 7;
+    var randomstring = '';
+    for (var i=0; i<string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      randomstring += chars.substring(rnum,rnum+1);
+    }
+    // document.randform.randomfield.value = randomstring;
+    document.getElementById('secrete_c').value = randomstring;
+  });
+</script>
+
+{% endblock %}

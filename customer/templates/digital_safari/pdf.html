@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ticket Details</title>
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: #fff;
+        }
+        .table th,
+        .table td {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #000;
+            text-align: center;
+        }
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #000;
+        }
+        .table tbody + tbody {
+            border-top: 2px solid #000;
+        }
+        .table .table {
+            background-color: #fff;
+        }
+        .list-group {
+            display: block;
+            width: 100%;
+            list-style: none;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .list-group p {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            list-style: none;
+            font-size: 1.1em;
+        }
+        .card-header h1{
+          text-align: center;
+          font-size: 20px;
+          border-bottom: 1px solid #3399ff;
+          margin-bottom: 50px;
+        }
+        .company_name h1{
+          text-align: center;
+        }
+
+        .table_details table tbody tr td h1{
+          font-size: 10px;
+          text-transform: capitalize;
+        }
+        .title{
+          text-transform: capitalize;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="title">Ticket Details</h1>
+            <center><h3>Date: {{ today | date:"d/m/Y" }}</h3></center>
+        </div>
+
+        <div class="list-group">
+            <!-- <p>Name: {{ request.user.first_name }} {{ request.user.last_name }}</p> -->
+        </div>
+        <div class="company_name">
+          <h1>Company name: {{passenger.operator}}</h1>
+        </div>
+
+        <div class="table_details">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><h2>Bus number: {{passenger.plate_n}}</h2></td>
+                <td><h2>Bus type: {{passenger.bustype}}</h2></td>
+                <td><h2>Bus class: {{passenger.busclass}}</h2></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br><br>
+
+        <div class="table_details">
+          <table class="table" border="2px;">
+            <tbody>
+              <tr>
+                <td><h2>From (Orign): {{passenger.from_p}}</h2></td>
+                <td><h2>To (Destination): {{passenger.to_d}}</h2></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <h2>Date of travel and Time of Travel</h2>
+        <div class="table_details">
+          <table class="table" border="2px;">
+            <tbody>
+              <tr>
+                <td><h2>Date of Travel: {{passenger.date_of_t}}</h2></td>
+                <td><h2>Time of Travel: {{passenger.time_of_t}}</h2></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <div class="table_details">
+          <table class="table" border="2px;">
+            <tbody>
+              <tr>
+                <td><h2>Number of Passenger(s): {{passenger.totalseats}}</h2></td>
+                <td><h2>Total Amount of Fare: Tshs.{{passenger.amount_total}}/=</h2></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br><br>
+        <h2>Passengers Details</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <!-- <th>ID</th> -->
+                <th><h2>Full Name</h2></th>
+                <th><h2>Boarding</h2></th>
+                <th><h2>Droping</h2></th>
+                <th><h2>Seat #</h2></th>
+                <th><h2>Fare</h2></th>
+                <th><h2>Ticket #</h2></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for data in datas %}
+                <tr>
+                    <!-- <td>{{ data.id }}</td> -->
+                    <td><h2>{{ data.first_name }} - {{ data.last_name }}</h2></td>
+                    <td><h2>{{ data.boarding_point }}</h2></td>
+                    <td><h2>{{ data.droping_point }}</h2></td>
+                    <td><h2>{{ data.seatnumber }}</h2></td>
+                    <td><h2>Tshs. {{ data.nauli }}/=</h2></td>
+                    <td><h2>{{ data.ticket_number }}</h2></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br><br><br><br>
+        <hr>
+        <center>
+          <h2>********************************** Digital Safari "Enjoy The Perfect Journey" **********************************</h2>
+          <h2>Phone number: +255(0) 679 343212/ +255(0) 758 313201</h2>
+          <h2>E-mail Address: info@digitalsafari.co.tz</h2>
+        </center>
+
+    </div>
+</div>
+
+</body>
+</html>

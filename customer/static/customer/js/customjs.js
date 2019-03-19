@@ -62,8 +62,30 @@ $(document).ready(function(){
   //   });
   // });
 
-
-
+  // function randomString() {
+  // 	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+  // 	var string_length = 8;
+  // 	var randomstring = '';
+  // 	for (var i=0; i<string_length; i++) {
+  // 		var rnum = Math.floor(Math.random() * chars.length);
+  // 		randomstring += chars.substring(rnum,rnum+1);
+  // 	}
+  // 	// document.randform.randomfield.value = randomstring;
+  //   document.getElementById('secrete_code').value = randomstring;
+  // }
+var boardingpoints;
+var dropingpoints;
+function boardDropEvaluate(){
+  var origin = document.getElementById('from_point_orign').value;
+  var destination = document.getElementById('to_point_destination').value;
+  if(origin =="Dodoma" && destination == "Dar es salaam"){
+    boardingpoints = "<option selected hidden>Board point</option><option value='Jamatini'>Jamatini</option><option value='Nanenane'>Nanenane</option><option value='Gairo'>Gairo</option><option value='Area C'>Area C</option>";
+    dropingpoints = "<option selected hidden>Drop points</option><option value='Kibaha'>Kibaha</option><option value='Mbezi'>Mbezi</option><option value='Ubungo'>Ubungo</option>";
+  }else if(origin =="Dar es salaam" && destination == "Dodoma"){
+    dropingpoints = "<option selected hidden>Board point</option><option value='Jamatini'>Jamatini</option><option value='Nanenane'>Nanenane</option><option value='Gairo'>Gairo</option><option value='Area C'>Area C</option>";
+    boardingpoints = "<option selected hidden>Drop points</option><option value='Kibaha'>Kibaha</option><option value='Mbezi'>Mbezi</option><option value='Ubungo'>Ubungo</option>";
+  }
+}
 function createHandler(counter){
   return function(){
     eval("avalue"+counter+"=document.getElementById(counter).innerHTML");
@@ -87,22 +109,34 @@ function createHandler(counter){
       eval("a"+counter).style.borderRadius = '100%';
       var set_nauli = document.getElementById('fare_part');
       set_nauli.innerHTML = bus_nauli *selectCount;
+      document.getElementById('modelFarePart').innerHTML = bus_nauli *selectCount;
+      document.getElementById('totalseatsInputFields').value = selectCount;
+      document.getElementById('amount_total').value = bus_nauli *selectCount;
       if(selectCount < 1){
         document.getElementById('proceed_button').style.display = 'none';
       }
       else {
         document.getElementById('proceed_button').style.display = 'block';
       }
-      document.getElementById('formDetails').innerHTML += "<div id='form"+counter+"'style='border:1px solid #0654a2;padding:0px 20px; margin-bottom:10px'><div class='row row_ya_seat_number'><div class='col-md-12'><h5 style='color:black'>Seat No. "+counter+"</h5></div></div><div class='row'><div class='col-md-6'><div class='form-group'><input type='number' name='' value='"+counter+"' class='w3-input' placeholder='Seat number' required disabled></div></div><div class='col-md-6'><div class='form-group'><input type='number' name='' value='"+bus_nauli+"' class='w3-input' placeholder='Bus Fare' required disabled></div></div></div><div class='row'><div class='col-md-6'><div class='form-group'><input type='text' id='' name='title'  placeholder='First Name' class='w3-input' required/></div></div> <div class='col-md-6'><div class='form-group'><input type='text' id='' name='title' placeholder='Last Name' class='w3-input' required/></div></div></div><div class='row'><div class='col-md-6'><div class='form-group'><input type='text' name='' value='' class='w3-input' placeholder='Bording Point' list='boarding_point' required><datalist id='boarding_point'><option value='Ubungo'>Ubungo</option><option value='Mbezi'>Mbezi</option><option value='Kibaha'>Kibaha</option></datalist></div></div><div class='col-md-6'><div class='form-group'><input type='text' name='' value='' class='w3-input' placeholder='Droping Point' list='droping_point' required><datalist id='droping_point'><option value='Ubungo'>Ubungo</option><option value='Mbezi'>Mbezi</option><option value='Kibaha'>Kibaha</option></datalist></div></div></div><div></div></div>"
+
+      // Generate random number for ticket_number
+      var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+      var string_length = 15;
+      var randomstringTicket = '';
+      for (var i=0; i<string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstringTicket += chars.substring(rnum,rnum+1);
+      }
+
+      boardDropEvaluate();
+      document.getElementById('formDetails').innerHTML += "<div id='form"+counter+"'style='border:1px solid #0654a2;padding:0px 20px; margin-bottom:10px'><div class='row row_ya_seat_number'><div class='col-md-12'><h5 style='color:black'>Seat No. "+counter+"</h5></div></div><div class='row'><div class='col-md-6'><div class='form-group'><input type='hidden' name='seatnumber' value='"+counter+"' class='w3-input' placeholder='Seat number' required></div></div><div class='col-md-6'><div class='form-group'><input type='hidden' name='nauli' value='"+bus_nauli+"' class='w3-input' placeholder='Bus Fare' required></div></div></div><div class='row'><div class='col-md-6'><div class='form-group'><input type='text' id='' name='firstname'  placeholder='First Name' class='w3-input' required/></div></div> <div class='col-md-6'><div class='form-group'><input type='text' id='' name='lastname' placeholder='Last Name' class='w3-input' required/></div></div></div><div class='row'><div class='col-md-6'><div class='form-group'><input type='hidden' name ='secretecode' id='secretecode"+selectCount+"' value='"+randomstring+"' class='w3-input'></div></div><div class='col-md-6'><div class='form-group'><input type='hidden' name ='ticket_number' id='ticket_number' value='"+randomstringTicket+"' class='w3-input'></div></div></div><div class='row'><div class='col-md-6'><div class='form-group'><input type='text' name='boardingpoint' value='' class='w3-input' placeholder='Bording Point' list='boarding_point' required><datalist id='boarding_point'>"+boardingpoints+"</datalist></div></div><div class='col-md-6'><div class='form-group'><input type='text' name='dropingpoint' value='' class='w3-input' placeholder='Droping Point' list='droping_point' required><datalist id='droping_point'>"+dropingpoints+"</datalist></div></div></div><div></div></div>"
       }
     };
 }
-
-
+var selectCount;
 function searchSuccess(data, textStatus, jqXHR){
   $('#search_results').html(data);
 }
-
 var get_seat_value = document.getElementById('number-of-seats');
 var availableSeat = document.getElementById('center_column_available_bus');
 var nauli = document.getElementById('fare_part').innerHTML;
@@ -111,12 +145,11 @@ document.getElementById('fare_part').innerHTML = 0;
 document.getElementById('fare_part').style.display = "inline-block";
 var total_nauli;
 var bus_nauli;
-
 var counter = 1;
 while(counter <= 49){
   bus_nauli =0+ nauli_to_int;
 
-  var selectCount=0;
+ selectCount=0;
   eval("seatno"+counter+"=0");// ninu
   eval("a"+ counter +"= document.getElementById(counter)");
   eval("a"+ counter).addEventListener('click', createHandler(counter));
@@ -158,7 +191,10 @@ function removeDivSeat(e){
               document.getElementById('form'+seatno).remove();
               var set_nauli = document.getElementById('fare_part');
               set_nauli.innerHTML = bus_nauli* selectCount;
+              document.getElementById('modelFarePart').innerHTML = bus_nauli *selectCount;
+              document.getElementById('totalseatsInputFields').value = selectCount;
               document.getElementById('totalCountSeat').innerHTML = selectCount;
+              document.getElementById('amount_total').value = bus_nauli *selectCount;
 
               if(selectCount < 1){
                 document.getElementById('proceed_button').style.display = 'none';
@@ -181,6 +217,7 @@ function removeDivSeat(e){
 //   })
 //   // console.log(getElementById('center_column_available_bus'));
 // }
+
 
 
 

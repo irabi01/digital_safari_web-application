@@ -1,0 +1,145 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content%}
+  <div class="custome_container w3-card-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>customers details</h2>
+          <p>Total number of customers: {{pay_info_number}}</p>
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <a href="{% url 'view_customer_dashboard' %}" class="btn btn-lg btn-block">
+            <span class="badge badge-primary badge-pill"><i class="fa fa-refresh"></i> Refresh</span>
+          </a>
+        </div>
+        <div class="col-md-6">
+          <form action="{% url 'view_customer_dashboard' %}" method="get">
+            <div class="form-group">
+              <input type="text" name="ticket_number" value="" placeholder="enter ticket number" class="w3-input">
+            </div>
+            <!-- <div class="form-group">
+              <center><button type="submit" name="button" class="btn btn-sm">search</button></center>
+            </div> -->
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="customers_table">
+            <div class="table-responsive">
+              <table class="table table-bordered table-small">
+                <tbody>
+                  <tr>
+                    <td>Payment Status</td>
+                    <td>{{pay_info.payment_status}}</td>
+                  </tr>
+                  <tr>
+                    <td>Reference Number(SP)</td>
+                    <td>{{pay_info.refence_number}}</td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number</td>
+                    <td>{{pay_info.phonenumber}}</td>
+                  </tr>
+                  <tr>
+                    <td>Email Address</td>
+                    <td>{{pay_info.emailaddress}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Seats</td>
+                    <td>{{pay_info.totalseats}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Amount</td>
+                    <td>Tshs. {{pay_info.amount_total}}/=</td>
+                  </tr>
+                  <tr>
+                    <td>From(Orign)</td>
+                    <td>{{pay_info.from_p}}</td>
+                  </tr>
+                  <tr>
+                    <td>To(Destination)</td>
+                    <td>{{pay_info.to_d}}</td>
+                  </tr>
+                  <tr>
+                    <td>Date of Travel</td>
+                    <td>{{pay_info.date_of_t}}</td>
+                  </tr>
+                  <tr>
+                    <td>Time of Travel</td>
+                    <td>{{pay_info.time_of_t}}</td>
+                  </tr>
+                  <tr>
+                    <td>Bus Number</td>
+                    <td>{{pay_info.plate_n}}</td>
+                  </tr>
+                  <tr>
+                    <td>Bus Type</td>
+                    <td>{{pay_info.bustype}}</td>
+                  </tr>
+                  <tr>
+                    <td>Bus Class</td>
+                    <td>{{pay_info.busclass}}</td>
+                  </tr>
+                  <tr>
+                    <td>Secrete Code(Important)</td>
+                    <td>{{pay_info.secrete_code}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+            <div class="w3-panel w3-display-container message_cancel_ticket">
+             <span onclick="this.parentElement.style.display='none'"
+             class="w3-button w3-display-topright">x</span>
+              <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
+            </div>
+            {% endfor %}
+          {% endif %}
+          {% for p in passengers %}
+          <div class="passenger_row w3-card-4">
+            <div class="row">
+              <div class="col-md-4">
+                <p>First Name: <strong>{{p.first_name}}</strong></p>
+              </div>
+              <div class="col-md-4">
+                <p>Last Name: <strong>{{p.last_name}}</strong></p>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Boarding Point: <strong>{{p.boarding_point}}</strong></p>
+              </div>
+              <div class="col-md-4">
+                <p>Droping Point: <strong>{{p.droping_point}}</strong></p>
+              </div>
+              <div class="col-md-4">
+                <p>Seat Number: <span class="badge badge-primary badge-pill"><strong>{{p.seatnumber}}</strong></span></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <p>Fare: <strong>Tshs. {{p.nauli}}/=</strong></p>
+              </div>
+              <div class="col-md-5">
+                <p>Ticket Number: <strong>{{p.ticket_number}}</strong></p>
+              </div>
+              <div class="col-md-4">
+                <a href="{% url '_cancel_ticket' p.id %}" class="btn btn-sm btn-danger" title="cancel ticket" onclick="return confirm('Are you sure you want to cancel this ticket?')"><i class="fa fa-remove"></i></a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock  %}

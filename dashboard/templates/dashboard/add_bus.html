@@ -3,7 +3,7 @@
 <div class="container w3-card-4 add_new_bus_and_routes">
   <h1>Add bus and routes</h1>
   <hr>
-  {% if messages %}
+  <!-- {% if messages %}
     {% for message in messages %}
       <div class="w3-panel w3-display-container w3-green">
        <span onclick="this.parentElement.style.display='none'"
@@ -11,23 +11,23 @@
         <h1 {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</h1>
       </div>
     {% endfor %}
-  {% endif %}
-  <form action="{% url 'add_bus_dashboard' %}" method="post">
+  {% endif %} -->
+  <form action="" method="post">
     {% csrf_token %}
     <div class="row">
       <div class="col-md-3"></div>
-      <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="form-group">
           <label for="">Plate Number *</label>
           {{busandroute.plate_Number}}
         </div>
       </div>
-      <div class="col-md-3 col-sm-12 col-xs-12">
+      <!-- <div class="col-md-3 col-sm-12 col-xs-12">
         <div class="form-group">
           <label for="">Bus Class *</label>
           {{busandroute.bus_class}}
         </div>
-      </div>
+      </div> -->
       <div class="col-md-3 form-group"></div>
     </div>
     <div class="row">
@@ -67,7 +67,7 @@
       <div class="col-md-3 col-sm-12 col-xs-12">
         <div class="form-group">
           <label for="">Company Name(Operator) *</label>
-          {{busandroute.company_Name}}
+          {{busandroute.company_name}}
         </div>
       </div>
       <div class="col-md-3 col-sm-12 col-xs-12">

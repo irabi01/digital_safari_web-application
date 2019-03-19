@@ -1,97 +1,97 @@
 <div class="form_container">
-  <form autocomplete="off" action="{% url 'availableRoutes' %}" method="post">
-    {% csrf_token %}
-    <div class="row no-gutters">
-      <div class="col-md-3">
-        <div class="form-group autocomplete">
-          <!--<span class="label label-default">From</span>-->
-          <div class="inputWithIcon">
-            <input type="text" name="startingpoint" value=""placeholder="From(Orign)" class="form-control" list="region_from" required>
-            <i class="fa fa-fort-awesome"></i>
-            <datalist id="region_from">
-              <option value="Arusha">Arusha</option>
-              <option value="Bukoba">Bukoba</option>
-              <option value="Dar es salaam">Dar es salaam</option>
-              <option value="Dodoma">Dodoma</option>
-              <option value="Mbeya">Mbeya</option>
-              <option value="Mwanza">Mwanza</option>
-              <option value="Morogoro">Morogoro</option>
-              <option value="Kahama">Kahama</option>
-              <option value="Kigoma">Kigoma</option>
-              <option value="Kilimanjaro">Kilimanjaro</option>
-              <option value="Tabora">Tabora</option>
-              <option value="Tanga">Tanga</option>
-              <option value="Ruvuma">Ruvuma</option>
-              <option value="Iringa">Iringa</option>
-              <option value="Sumbawanga">Sumbawanga</option>
-              <option value="Lindi">Lindi</option>
-              <option value="Mtwara">Mtwara</option>
-              <option value="Mombasa">Mombasa</option>
-              <option value="Malindi">Malindi</option>
-              <option value="Songea">Songea</option>
-          </datalist>
+  <form autocomplete="off" action="{% url 'searched_routes' %}" method="GET">
+    <!-- {% csrf_token %} -->
+    <div class="search_form_row">
+      <div class="row no-gutters">
+        <!-- <div class="col-md-2"></div> -->
+        <div class="col-md-3">
+          <div class="form-group autocomplete">
+            <div class="inputWithIcon">
+              <input type="text" name="startingpoint" value="{{request.GET.startingpoint}}"placeholder="From" class="form-control" list="region_from" required>
+              <i class="fa fa-fort-awesome"></i>
+              <datalist id="region_from">
+                <option value="Arusha">Arusha</option>
+                <option value="Bukoba">Bukoba</option>
+                <option value="Dar es salaam">Dar es salaam</option>
+                <option value="Dodoma">Dodoma</option>
+                <option value="Mbeya">Mbeya</option>
+                <option value="Mwanza">Mwanza</option>
+                <option value="Morogoro">Morogoro</option>
+                <option value="Kahama">Kahama</option>
+                <option value="Kigoma">Kigoma</option>
+                <option value="Kilimanjaro">Kilimanjaro</option>
+                <option value="Tabora">Tabora</option>
+                <option value="Tanga">Tanga</option>
+                <option value="Ruvuma">Ruvuma</option>
+                <option value="Iringa">Iringa</option>
+                <option value="Sumbawanga">Sumbawanga</option>
+                <option value="Lindi">Lindi</option>
+                <option value="Mtwara">Mtwara</option>
+                <option value="Mombasa">Mombasa</option>
+                <option value="Malindi">Malindi</option>
+                <option value="Songea">Songea</option>
+            </datalist>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-3">
-        <div class="form-group">
-          <!--<span class="label label-default">To</span>-->
-          <div class="inputWithIcon">
-            <input type="text" name="endpoint" value=""placeholder="To(Destination)" class="form-control" list="region_destination" required>
-            <i class="fa fa-fort-awesome"></i>
-            <datalist id="region_destination">
-              <option value="Arusha">Arusha</option>
-              <option value="Bukoba">Bukoba</option>
-              <option value="Dar es salaam">Dar es salaam</option>
-              <option value="Dodoma">Dodoma</option>
-              <option value="Mbeya">Mbeya</option>
-              <option value="Mwanza">Mwanza</option>
-              <option value="Morogoro">Morogoro</option>
-              <option value="Kahama">Kahama</option>
-              <option value="Kigoma">Kigoma</option>
-              <option value="Kilimanjaro">Kilimanjaro</option>
-              <option value="Tabora">Tabora</option>
-              <option value="Tanga">Tanga</option>
-              <option value="Ruvuma">Ruvuma</option>
-              <option value="Iringa">Iringa</option>
-              <option value="Sumbawanga">Sumbawanga</option>
-              <option value="Lindi">Lindi</option>
-              <option value="Mtwara">Mtwara</option>
-              <option value="Mombasa">Mombasa</option>
-              <option value="Malindi">Malindi</option>
-              <option value="Songea">Songea</option>
-          </datalist>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="inputWithIcon">
+              <input type="text" name="endpoint" value="{{request.GET.endpoint}}"placeholder="To" class="form-control" list="region_destination" required>
+              <i class="fa fa-fort-awesome"></i>
+              <datalist id="region_destination">
+                <option value="Arusha">Arusha</option>
+                <option value="Bukoba">Bukoba</option>
+                <option value="Dar es salaam">Dar es salaam</option>
+                <option value="Dodoma">Dodoma</option>
+                <option value="Mbeya">Mbeya</option>
+                <option value="Mwanza">Mwanza</option>
+                <option value="Morogoro">Morogoro</option>
+                <option value="Kahama">Kahama</option>
+                <option value="Kigoma">Kigoma</option>
+                <option value="Kilimanjaro">Kilimanjaro</option>
+                <option value="Tabora">Tabora</option>
+                <option value="Tanga">Tanga</option>
+                <option value="Ruvuma">Ruvuma</option>
+                <option value="Iringa">Iringa</option>
+                <option value="Sumbawanga">Sumbawanga</option>
+                <option value="Lindi">Lindi</option>
+                <option value="Mtwara">Mtwara</option>
+                <option value="Mombasa">Mombasa</option>
+                <option value="Malindi">Malindi</option>
+                <option value="Songea">Songea</option>
+            </datalist>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <!--<span class="label label-default">Departure date</span>-->
-          <div class="inputWithIcon">
-            <input type="text" id="departure" name="departuredate"placeholder="Departure date" class="form-control" required>
-            <i class="fa fa-calendar"></i>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="inputWithIcon">
+              <input type="text" id="departure" value="{{request.GET.departuredate}}" name="departuredate"placeholder="Date" class="form-control" required>
+              <i class="fa fa-calendar"></i>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <!--<span class="label label-default">Return date</span>-->
-          <div class="inputWithIcon">
-            <input type="text" id="return" name="returndate"placeholder="Return date" class="form-control">
-            <i class="fa fa-calendar"></i>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="inputWithIcon">
+              <input type="text" id="return" name="returndate"placeholder="Return date" class="form-control">
+              <i class="fa fa-calendar"></i>
+            </div>
           </div>
         </div>
+        <!-- <div class="col-md-2"></div> -->
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <center><button type="submit" name="serchButton" class="btn btn-sm btn_search_route">Search route</button></center>
+      <div class="row">
+        <!-- <div class="col-md-4"></div> -->
+        <div class="col-md-4 offset-md-4">
+          <div class="form-group">
+            <center><button type="submit" name="serch_route" class="btn btn-sm btn_search_route btn-block">Search route</button></center>
+          </div>
         </div>
+        <!-- <div class="col-md-4"></div> -->
       </div>
-      <div class="col-md-4"></div>
     </div>
   </form>
 </div>

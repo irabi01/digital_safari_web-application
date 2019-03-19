@@ -14,65 +14,58 @@
     <link rel="stylesheet" href="{% static 'customer/jqueryui/jquery-ui.css' %}">
 </head>
 <body>
-
+    {% if request.user.is_authenticated %}
     <div class="w3-sidebar w3-bar-block w3-collapse w3-card-4 side_navigation_dashboard" style="width:250px;" id="mySidebar">
       <button class="w3-bar-item w3-button w3-hide-large"
       onclick="w3_close()">Close &times;</button>
       <img src="/static/customer/images/img2.jpg" alt="Partner image" class="img-fluid">
-      {% if request.user.is_authenticated %}
-        {% if user.username == 'admin' %}
+
+        {% if status == 'Driver' %}
         <a href="{% url 'home_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
         <a href="{% url 'new_company_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-university"></i> Register New Company</a>
         <a href="{% url 'company_list' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Company List</a>
-        <a href="{% url 'profile_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Profile</a>
-        <a href="{% url 'setting_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-cogs"></i> setting</a>
+        <!-- <a href="{% url 'profile_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Profile</a> -->
+        <a href="{% url 'report_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-pdf"></i> report</a>
         <a href="{% url 'logout_user' %}" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> logout</a>
-        {% elif user.username == 'deus' %}
+        {% elif status == 'Administrator' %}
         <a href="{% url 'home_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
-        <a href="{% url 'new_staff_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Register Company staff</a>
-        <a href="{% url 'new_customer_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Add New customer</a>
+        <a href="{% url 'new_staff_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Add staff</a>
+        <a href="{% url 'new_customer_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Issue Ticket</a>
         <a href="{% url 'register_bus_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-bus"></i> Register New bus</a>
         <a href="{% url 'add_bus_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-bus"></i> Add bus and Route</a>
         <a href="{% url 'staffs_list_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> Staffs List</a>
-        <a href="{% url 'view_customer_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> View customers</a>
+        <a href="{% url 'view_customer_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> View Passengers</a>
         <a href="{% url 'view_bus_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> View registered bus</a>
         <a href="{% url 'view_added_bus_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> View added bus and routes</a>
         <a href="{% url 'profile_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Profile</a>
-        <a href="{% url 'setting_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-cogs"></i> setting</a>
+        <a href="{% url 'report_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-pdf"></i> report</a>
         <a href="{% url 'logout_user' %}" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> logout</a>
-        {% elif user.username == 'fred' %}
+        {% elif status == 'Receptionist' %}
         <a href="{% url 'home_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
         <a href="{% url 'register_bus_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-bus"></i> Register New bus</a>
         <a href="{% url 'add_bus_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-bus"></i> Add bus and Route</a>
         <a href="{% url 'view_bus_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> View registered bus</a>
         <a href="{% url 'view_added_bus_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> View added bus and routes</a>
         <a href="{% url 'profile_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Profile</a>
-        <a href="{% url 'setting_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-cogs"></i> setting</a>
+        <a href="{% url 'report_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-pdf"></i> report</a>
         <a href="{% url 'logout_user' %}" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> logout</a>
         {% else %}
         <a href="{% url 'home_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
-        <a href="{% url 'new_customer_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Add New customer</a>
-        <a href="{% url 'view_customer_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> View customers</a>
+        <a href="{% url 'new_customer_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-plus"></i> Issue Ticket</a>
+        <a href="{% url 'view_customer_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-list"></i> View Passengers</a>
         <a href="{% url 'profile_dashboard' %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Profile</a>
         <a href="{% url 'logout_user' %}" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> logout</a>
         {% endif%}
-      {% else %}
-        <p>irabi coder</p>
-      {% endif %}
     </div>
     <div class="w3-main" style="margin-left:250px">
       <div class="dashboard_header">
         <button class="w3-button w3-teal w3-hide-large" onclick="w3_open()">&#9776;</button>
         <div class="w3-container">
           <div class="welcome_header">
-            <h1>Welcome user</h1>
+            <h1>Welcome {{user.username}} ......... Staff status: {{profile.user.staff_status}} </h1>
           </div>
           <div class="logout">
-            {% if request.user.is_authenticated %}
              <p><a href="{% url 'logout_user' %}" class="w3-bar-item w3-button">logout <i class="fa fa-sign-out"></i></a></p>
-            {% else %}
-              <p>digital_safari</p>
-            {% endif %}
           </div>
         </div>
       </div>
@@ -97,5 +90,10 @@
   <script>
     autocomplete(document.getElementById("myInput"), countries);
   </script>
+  {% else %}
+  <div class="login-again" style="text-align:center; margin: 200px auto;">
+      <center><p><a href="{% url 'login_user_dashboard' %}" style="text-decoration:none; height: 50px;padding-top:10px;font-weight:bold" class="btn btn-info btn-sm">Click here to login again</a></p></center>
+  </div>
+  {% endif %}
 </body>
 </html>

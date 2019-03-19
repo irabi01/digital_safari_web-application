@@ -1,0 +1,52 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block content %}
+<div class="container w3-card-4 add_customer_admn_part">
+  <h1>Search for routes</h1>
+  <hr>
+  <div class="dashboard_search_route">
+    {% include 'dashboard/route_form.html' %}
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <center><p>{{count_route}} routes found from: {{fr_point}} to: {{to_dest}} on: {{depart}}</p></center>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    {% for r in route %}
+      <div class="col-md-6 route_list">
+        <div class="searched_route">
+          <div class="row">
+            <div class="col-md-6">
+              <p>From: {{r.from_point}}</p>
+            </div>
+            <div class="col-md-6">
+              <p>To: {{r.to_point}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p>Departure Date: {{r.departure_date}}</p>
+            </div>
+            <div class="col-md-6">
+              <p>Time of Travel: {{r.time_of_travel}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <p>Fare: {{r.dail_fare}}/=</p>
+            </div>
+            <div class="col-md-3">
+              <p>Operator: {{r.plate_Number.company_name}}</p>
+            </div>
+            <div class="col-md-6">
+              <a href="{% url 'seat_layout_dashboard' r.id %}" id="generate_secrete_code" class="btn btn-sm btn-primary btn-block">view seats</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

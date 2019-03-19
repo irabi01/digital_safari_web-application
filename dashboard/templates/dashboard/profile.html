@@ -1,4 +1,48 @@
 {% extends "dashboard/base_dashboard.html" %}
 {% block content%}
-  <h1>this is the profile</h1>
+  <div class="prof_container w3-card-4">
+    <div class="container">
+      <h1><span class="badge badge-primary badge-pill"><i class="fa fa-user"></i> User Profile</span></h1>
+      <hr>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="profile_container">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>Company name: </td>
+                  <td>{{profile.user.company_name}}</td>
+                </tr>
+                <tr>
+                  <td>Username: </td>
+                  <td>{{user.username}}</td>
+                </tr>
+                <tr>
+                  <td>First name:  </td>
+                  <td>{{user.first_name}}</td>
+                </tr>
+                <tr>
+                  <td>Last name:  </td>
+                  <td>{{user.last_name}}</td>
+                </tr>
+                <tr>
+                  <td>Staff status: </td>
+                  <td>{{profile.user.staff_status}}</td>
+                </tr>
+                <tr>
+                  <td>Email address: </td>
+                  <td>{{user.email}}</td>
+                </tr>
+                <tr>
+                  <td>Phone number: </td>
+                  <td>{{profile.user.phone_number}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock  %}

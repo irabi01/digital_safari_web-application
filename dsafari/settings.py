@@ -118,6 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# AUTH_PROFILE_MODULE = 'dashboard.CompanyStaff'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

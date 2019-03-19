@@ -1,9 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from dashboard.models import BusAndRoutes, BusRegistartion
 from datetime import datetime
-
+from django.db.models import Q
+from .models import Passenger, PaymentInfo
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.utils import timezone
+from django.template.loader import get_template
+from .render import Render
 
 # Create your views here.
+def generate_single_view(request, id):
+    pass_details = PaymentInfo.objects.get(id = id)
+    _pay = pass_details.secrete_code
+    print(_pay)
+    get_passenger_details = Passenger.objects.filter(secretecode = _pay)
+    today = timezone.now()
+    params = {
+        'today': today,
+        'datas': get_passenger_details,
+        'request': request,
+        'passenger': pass_details,
+    }
+    return Render.render('digital_safari/pdf.html', params)
+
 def home(request):
     myDate = datetime.now()
     context = {
@@ -39,31 +59,42 @@ def get_current_time(request):
     }
     return render(request, 'digital_safari/footer.html', context)
 
-def availableRoutes(request):
-    print("welcome to the available bus")
-    startingpoint = request.POST.get('startingpoint')
-    endpoint = request.POST.get('endpoint')
-    departuredate = request.POST.get('departuredate')
-    # x = startingpoint[0:3]
-    print(startingpoint)
-    # print(x)
-    print(endpoint)
-    print(departuredate)
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint , to_point__icontains = endpoint , departure_date__icontains = departuredate).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint , to_point__icontains = endpoint , departure_date__icontains = departuredate)
+def searched_routes(request):
+    fr_p = request.GET.get('startingpoint', None)
+    to_p = request.GET.get('endpoint', None)
+    dep = request.GET.get('departuredate', None)
+    # ret = request.GET.get('return', None)
+    query = request.GET.get('q', None)
     myDate = datetime.now()
+    route = BusAndRoutes.objects.all()
+    count_route = BusAndRoutes.objects.filter(from_point = fr_p, to_point = to_p, departure_date = dep).count()
+    if query is not None:
+        route = route.filter(
+            Q(from_point__icontains = query) |
+            Q(to_point__icontains = query) |
+            Q(departure_date__icontains = query) |
+            Q(bus_class__icontains = query) |
+            Q(dail_fare__icontains = query) |
+            Q(company_Name__icontains = query)
+        )
+    if fr_p is not None:
+        route = route.filter(from_point__icontains = fr_p)
+    if to_p is not None:
+        route = route.filter(to_point__icontains = to_p)
+    if dep is not None:
+        route = route.filter(departure_date__icontains = dep)
+    # if ret is not None:
+    #     route = route.filter(from_point__icontains = ret)
     context = {
-        # 'x_variable': x,
         'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
+        'route':route,
+        'count_route':count_route,
+        'fr_point': fr_p,
+        'to_dest': to_p,
+        'depart': dep,
     }
-    if get_routes > 0:
+    if count_route > 0:
         return render(request, 'digital_safari/available_bus.html', context)
-        # return redirect('/digital_safari/availableRoutes/')
     else:
         return render(request, 'digital_safari/route_error_page.html', context)
 
@@ -76,814 +107,91 @@ def seatlayout(request, id = None):
     }
     return render(request, 'digital_safari/seat_layout.html', context)
 
-def payment_option(request, id = None):
-    myDate = datetime.now()
-    get_bus_details_to_payment_page = get_object_or_404(BusAndRoutes, id = id)
-    context = {
-        'date': myDate,
-        'full_details_to_payment_page':get_bus_details_to_payment_page,
-    }
-    return render(request, 'digital_safari/payment_option.html',context)
-
-
-
-# Edit this function future on in order to work correctly ...... By 01Coder from soft-Touch
-def search(request):
+def passengers_details(request):
+    print("passengers details are going to be submitted")
     if request.method == "POST":
-        startingpoint_variable = request.POST['spoint']
-        endpoint_variable = request.POST['fpoint']
-        departuredate_variable = request.POST['departure']
+        # for passenger details
+        seatnumber = request.POST.getlist('seatnumber')
+        nauli = request.POST.getlist('nauli')
+        firstname = request.POST.getlist('firstname')
+        lastname = request.POST.getlist('lastname')
+        boardingpoint = request.POST.getlist('boardingpoint')
+        dropingpoint = request.POST.getlist('dropingpoint')
+        secretecode = request.POST.getlist('secretecode')
+        ticket_number = request.POST.getlist('ticket_number')
+        # for payment details
+        total_amount = request.POST.get('amount_total')
+        phonenumber = request.POST.get('phonenumber')
+        emailaddress = request.POST.get('emailaddress')
+        payment_status = request.POST.get('paymentstatus')
+        refence_number = request.POST.get('referencenumber')
+        secrete_code = request.POST.get('secrete_code')
+        totalseats = request.POST.get('totalseats')
+        from_p = request.POST.get('from_point_orign')
+        to_d = request.POST.get('to_point_destination')
+        date_of_t = request.POST.get('dateoftravel')
+        time_of_t = request.POST.get('timeoftravel')
+        plate_n = request.POST.get('platenumber')
+        operator = request.POST.get('operator')
+        arrivaltime = request.POST.get('arrivaltime')
+        bustype = request.POST.get('bustype')
+        busclass = request.POST.get('busclass')
+        for fn, ln, bp, dp, sn, nauli, sc, tn in zip(firstname, lastname, boardingpoint, dropingpoint, seatnumber, nauli, secretecode, ticket_number):
+            print(fn)
+            print(ln)
+            print(bp)
+            print(dp)
+            print(sn)
+            print(nauli)
+            print(sc)
+            print(tn)
+            passenger_object = Passenger(first_name = fn, last_name = ln, boarding_point = bp, droping_point = dp, seatnumber = sn, nauli = nauli, secretecode = sc, ticket_number = tn)
+            passenger_object.save()
+        print('********************* payment details *********************')
+        print(total_amount)
+        print(emailaddress)
+        print(phonenumber)
+        print(payment_status)
+        print(refence_number)
+        print(secrete_code)
+        print(totalseats)
+        print(from_p)
+        print(to_d)
+        print(date_of_t)
+        print(time_of_t)
+        print(plate_n)
+        print(operator)
+        print(arrivaltime)
+        print(bustype)
+        print(busclass)
+        payment_object = PaymentInfo(secrete_code = secrete_code, payment_status = payment_status, refence_number = refence_number, phonenumber = phonenumber, emailaddress = emailaddress, totalseats = totalseats, amount_total = total_amount, from_p = from_p, to_d = to_d, date_of_t = date_of_t, time_of_t = time_of_t, plate_n = plate_n, operator = operator, arrivaltime = arrivaltime, bustype = bustype, busclass = busclass)
+        payment_object.save()
+        return redirect('/passengers_details/payment_option/')
+        # return redirect('payment_option')
     else:
-        startingpoint_variable = ""
-        endpoint_variable = ""
-        departuredate_variable = ""
-    filtered_Routes = BusAndRoutes.objects.filter(from_point = startingpoint_variable)
-    context = {
-        'filtered_Routes':filtered_Routes
-    }
-    return render(request, 'digital_safari/available_bus.html', context)
+        return redirect('homepage')
 
-def twelvethousand(request):
-    print("welcome to the available bus")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    get_routes = BusAndRoutes.objects.filter( dail_fare = '22000').count()
-    countRoutes = BusAndRoutes.objects.filter( dail_fare = '22000')
+def payment_option(request):
     myDate = datetime.now()
+    # get_bus_details = get_object_or_404(BusAndRoutes, id = id)
+    get_payment_info = PaymentInfo.objects.latest('id')
+    _data = get_payment_info.secrete_code
+    print(_data)
+    get_passenger_details = Passenger.objects.filter(secretecode = _data)
     context = {
         'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
+        'full_details_to_payment_page':get_passenger_details,
+        'bus_details_payment_page':get_payment_info,
     }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-#************************* filter by bus Class (Luxury or Semi-Luxury)***********
-def search_luxury(request):
-    print("search Luxury bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, bus_class = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, bus_class = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-def search_semi_luxury(request):
-    print("search semi Luxury bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, bus_class = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, bus_class = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-def search_ordinary_bus(request):
-    print("search search_ordinary_bus bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, bus_class = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, bus_class = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
+    return render(request, 'digital_safari/payment_option.html', context)
 
 
 #custom page not found ..... by 01Coder from soft-touch technology
 def error404(request, exception):
-    # context = {
-    #     'date': myDate,
-    # }
     return render(request, 'digital_safari/error_404.html', {})
+
+def error500(request):
+    return render(request, 'digital_safari/error_500.html', {})
 
 
 #*************************** filter by departure time **********************
-def _0600am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    #startingpoint = startingpoint.lower()#solve this error (lower)
-    #endpoint = endpoint.lower()#solve this error (lower)
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-def _0630am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _0700am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _0730am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _0800am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _0830am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _0900am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _0930am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-def _1000am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1030am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1100am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1130am(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-def _1200pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1230pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1300pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1330pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1400pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1430pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1500pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1530pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1600pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1630pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1700pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1730pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1800pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1830pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1900pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _1930pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-
-def _2000pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)
-
-def _2030pm(request):
-    print("search saa 1200 asubuhi bus for respective routes")
-    startingpoint = request.POST.get('startingpoint')#from
-    endpoint = request.POST.get('endpoint')#to
-    departuredate = request.POST.get('departuredate')
-    filter_field = request.POST.get('for_searching_data')
-    get_routes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field).count()
-    countRoutes = BusAndRoutes.objects.filter(from_point__icontains = startingpoint, to_point__icontains = endpoint, departure_date__icontains = departuredate, time_of_travel = filter_field)
-    myDate = datetime.now()
-    context = {
-        'date': myDate,
-        'countRoutes':countRoutes,
-        'get_routes':get_routes,
-        'startingpoint':startingpoint,
-        'endpoint':endpoint,
-        'departuredate':departuredate
-    }
-    if get_routes > 0:
-        return render(request, 'digital_safari/available_bus.html', context)
-    else:
-        return render(request, 'digital_safari/route_error_page.html', context)

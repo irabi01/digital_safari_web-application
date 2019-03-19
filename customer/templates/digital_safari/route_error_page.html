@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="route_form_available_bus">
-            {% include "digital_safari/route_form_live_search.html" %}
+            {% include "digital_safari/route_form.html" %}
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>{{get_routes}} Results found</h1>
+            <h1>{{count_route}} Results found</h1>
             <a href="{% url 'homepage' %}" class="w3-btn btn-sm w3-card-4">Home page</a>
           </div>
         </div>

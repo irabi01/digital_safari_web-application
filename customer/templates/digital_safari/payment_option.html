@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="route_form_available_bus">
-          {% include "digital_safari/route_form_live_search.html" %}
+          {% include "digital_safari/route_form.html" %}
         </div>
       </div>
     </div>
@@ -19,36 +19,43 @@
       <div class="col-md-7">
           <div class="payment_company">
             <div class="passengers_details">
-              <h2>Passengers details</h2>
+              <h2>Passenger(s) details</h2>
             </div>
             <div class="number_of_passengers">
-              <div class="passenger_one_layout w3-card-4">
-                <ul class="list-unstyled">
-                  <h3>Passenger 1</h3>
-                  <hr>
-                  <li>Full Name: Irabi Kassim</li>
-                  <li>Boarding Point: Ubungo</li>
-                  <li>Droping Point: Msamvu</li>
-                </ul>
+              <!-- <h3>Passenger(s)</h3>
+              <hr> -->
+              {% for data in full_details_to_payment_page %}
+              <div class="passenger_payment_layout w3-card-4">
+                <table class="table table-sm table-bordered table-hover">
+                  <tbody>
+                    <tr>
+                      <td>Full Name: </td>
+                      <td>{{data.first_name}} {{data.last_name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Boarding Point: </td>
+                      <td>{{data.boarding_point}}</td>
+                    </tr>
+                    <tr>
+                      <td>Droping Point: </td>
+                      <td>{{data.droping_point}}</td>
+                    </tr>
+                    <tr>
+                      <td>Seat #:</td>
+                      <td>{{data.seatnumber}}</td>
+                    </tr>
+                    <tr>
+                      <td>Fare: </td>
+                      <td>Tshs.{{data.nauli}}/=</td>
+                    </tr>
+                    <tr>
+                      <!-- <td>Ticket Number: </td>
+                      <td>{{full_details_to_payment_page.secrete_code}}</td> -->
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="passenger_two_layout w3-card-4">
-                <h3>Passenger 2</h3>
-                <hr>
-                <ul class="list-unstyled">
-                  <li>Full Name: Deus Byaba</li>
-                  <li>Boarding Point: Mbezi</li>
-                  <li>Droping Point: Dumira</li>
-                </ul>
-              </div>
-              <div class="passenger_three_layout w3-card-4">
-                <h3>Passenger 3</h3>
-                <hr>
-                <ul class="list-unstyled">
-                  <li>Full Name: Fred Nazari</li>
-                  <li>Boarding Point: Mbezi</li>
-                  <li>Droping Point: Nanenane</li>
-                </ul>
-              </div>
+              {% endfor %}
             </div>
             <div class="payment_method_selection">
               <h1>Select payment method</h1>
@@ -104,47 +111,52 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td>Selected Seat(s): </td>
-                  <td>12, 30, 40</td>
-                </tr>
-                <tr>
-                  <td>Fare: </td>
-                  <td>{{full_details_to_payment_page.dail_fare}}/=</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
                   <td>Operator: </td>
-                  <td>{{full_details_to_payment_page.company_Name}}</td>
+                  <td>
+                    {{bus_details_payment_page.operator}}
+                  </td>
                 </tr>
                 <tr>
                   <td>Route: </td>
-                  <td>{{full_details_to_payment_page.from_point}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{full_details_to_payment_page.to_point}}</td>
+                  <td>
+                    {{bus_details_payment_page.from_p}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i> {{bus_details_payment_page.to_d}}
+                  </td>
                 </tr>
                 <tr>
-                  <td>Departure Time: </td>
-                  <td>{{full_details_to_payment_page.time_of_travel}}</td>
+                  <td>Departure Date: </td>
+                  <td>
+                    {{bus_details_payment_page.date_of_t}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Time of Travel: </td>
+                  <td>
+                    {{bus_details_payment_page.time_of_t}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Arrival Time: </td>
+                  <td>
+                    {{bus_details_payment_page.arrivaltime}}
+                  </td>
                 </tr>
                 <tr>
                   <td>Bus Type: </td>
-                  <td>Youtong</td>
+                  <td>
+                    {{bus_details_payment_page.bustype}}
+                  </td>
                 </tr>
                 <tr>
                   <td>Bus Class: </td>
-                  <td>{{full_details_to_payment_page.bus_class}}</td>
-                </tr>
-                <!--{# <tr>
-                  <td>Bording Point: </td>
-                  <td>Ubungo</td>
+                  <td>
+                    {{bus_details_payment_page.busclass}}
+                  </td>
                 </tr>
                 <tr>
-                  <td>Droping Point: </td>
-                  <td>Gairo</td>
-                </tr> #}-->
+                  <td>
+                    <a href="{% url 'generate_single_view' bus_details_payment_page.id %}" target="_blank" class="btn btn-sm btn_print_ticket">Print Ticket</a>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -157,8 +169,8 @@
               <li class="list-group-item">2. Ensure information provided is correct </li>
               <li class="list-group-item">3. You will receive confirmation SMS/Email once your payment is confirmed </li>
               <li class="list-group-item">4. Any booking unpaid until expiration date will automatically be cancelled </li>
-              <li class="list-group-item">5. Fares are not guaranteed until shabiby confirms your booking and payment is made in full </li>
-              <li class="list-group-item">5. <strong>Disclaimer:</strong> Shabiby may refuse carriage of you or your baggage if, in the exercise of our reasonable discretion, we determine either that the payment of your fare is fraudulent or the booking of your seat has been done fraudulently or unlawfully  </li>
+              <li class="list-group-item">5. Fares are not guaranteed until dsafari confirms your booking and payment is made in full </li>
+              <li class="list-group-item">5. <strong>Disclaimer:</strong> Digital Safari may refuse carriage of you or your baggage if, in the exercise of our reasonable discretion, we determine either that the payment of your fare is fraudulent or the booking of your seat has been done fraudulently or unlawfully  </li>
             </ul>
           </div>
         </div>
